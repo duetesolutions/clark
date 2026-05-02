@@ -1,21 +1,19 @@
-## Contexto
+## Context
 
-<!-- Por que essa mudança é necessária? Qual problema resolve ou qual necessidade atende? -->
+<!-- Why is this change necessary? What problem does it solve or what need does it address? -->
 
-## O que foi feito
+## What was done
 
-<!-- Descreva as mudanças realizadas de forma objetiva. -->
+<!-- Describe the changes made objectively. -->
 
 -
 
-## Evidências
+## Evidence
 
-<!-- Screenshots, vídeos, logs ou qualquer evidência visual/técnica que comprove o funcionamento. -->
+<!-- Screenshots, videos, logs or any visual/technical proof that the implementation works. -->
 
-## Critérios de aceite
+## Acceptance criteria
 
-<!-- Liste os critérios que devem ser satisfeitos para considerar essa PR concluída. -->
-
-- [ ] Testes atualizados e passando
-- [ ] Build passando
-- [ ] Evidências coletadas
+- [ ] Tests updated and passing
+- [ ] Build passing
+- [ ] Evidence collected
