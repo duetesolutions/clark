@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "services": "Services",
+    "process": "Process",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Duete Solutions",
+    "subtitle": "Digital solutions for your business"
+  },
+  "pricing": {
+    "setup": "$500 – $1,200",
+    "maintenance": "$25/month"
+  }
+}
