@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# vue-tsc build mode artifacts
+src/**/*.vue.js
+src/**/*.vue.d.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

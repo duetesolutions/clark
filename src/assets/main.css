@@ -1,11 +1,64 @@
 @import 'tailwindcss';
 
-:root {
-  --color-green: #46ce7a;
-  --color-green-dim: #3ab86b;
-  --color-green-pale: #e8faf0;
+/* Tailwind v4: class-based dark mode via VueUse useDark() */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand colors */
+  --color-primary: #46ce7a;
+  --color-primary-hover: #3ab86b;
+  --color-primary-pale: #e8faf0;
   --color-dark: #132227;
   --color-dark2: #20272f;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+:root {
+  /* Semantic tokens — light */
+  --color-bg: #ffffff;
+  --color-bg-muted: #f7faf8;
+  --color-text: #0f172a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
   --color-surface: #ffffff;
   --color-surface2: #f7faf8;
+}
+
+.dark {
+  /* Semantic tokens — dark */
+  --color-bg: #0d1117;
+  --color-bg-muted: #161b22;
+  --color-text: #f0f6fc;
+  --color-text-muted: #8b949e;
+  --color-border: #30363d;
+  --color-surface: #161b22;
+  --color-surface2: #21262d;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
