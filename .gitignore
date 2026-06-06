@@ -15,6 +15,8 @@ dist-ssr
 # vue-tsc build mode artifacts
 src/**/*.vue.js
 src/**/*.vue.d.ts
+src/**/*.ts.js
+src/**/*.ts.d.ts
 
 # Editor directories and files
 .vscode/*
