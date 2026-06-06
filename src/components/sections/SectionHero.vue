@@ -154,29 +154,28 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
 
         <!-- Buttons row -->
         <div class="flex flex-wrap items-center" style="gap:16px; margin-top:32px;">
-          <Button variant="primary" size="md" class="rounded-full!">
-            {{ t('hero.cta1') }}
-          </Button>
-          <button
-            type="button"
+          <a href="#contato">
+            <Button variant="primary" size="md" class="rounded-full!">
+              {{ t('hero.cta1') }}
+            </Button>
+          </a>
+          <a
+            href="#servicos"
             class="inline-flex items-center justify-center transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2"
             style="
-              background: transparent;
-              border: none;
               font-family: var(--font-sans);
               font-weight: 500;
               font-size: 16px;
               color: rgba(255,255,255,0.7);
-              cursor: pointer;
-              padding: 0;
+              text-decoration: none;
               gap: 6px;
               --tw-ring-color: var(--color-primary);
             "
-            @mouseover="(e) => ((e.currentTarget as HTMLButtonElement).style.color = '#ffffff')"
-            @mouseleave="(e) => ((e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.7)')"
+            @mouseover="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#ffffff')"
+            @mouseleave="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.7)')"
           >
             {{ t('hero.cta2') }}
-          </button>
+          </a>
         </div>
 
         <!-- Tags row -->

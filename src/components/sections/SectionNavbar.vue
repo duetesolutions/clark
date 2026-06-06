@@ -154,13 +154,15 @@ onUnmounted(() => {
 
         <!-- "Fale conosco" CTA (desktop) -->
         <div class="hidden lg:block">
-          <Button
-            variant="primary"
-            size="sm"
-            class="rounded-full!"
-          >
-            {{ t('nav.cta') }}
-          </Button>
+          <a href="#contato">
+            <Button
+              variant="primary"
+              size="sm"
+              class="rounded-full!"
+            >
+              {{ t('nav.cta') }}
+            </Button>
+          </a>
         </div>
 
         <!-- Hamburger (mobile only) -->
@@ -255,9 +257,11 @@ onUnmounted(() => {
           </li>
         </ul>
         <div class="px-6 pb-5 pt-3">
-          <Button variant="primary" size="md" class="w-full rounded-full!" @click="closeMobileMenu">
-            {{ t('nav.cta') }}
-          </Button>
+          <a href="#contato" class="block" @click="closeMobileMenu">
+            <Button variant="primary" size="md" class="w-full rounded-full!">
+              {{ t('nav.cta') }}
+            </Button>
+          </a>
         </div>
       </div>
     </Transition>
