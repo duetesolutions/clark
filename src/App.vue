@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import SectionNavbar from '@/components/sections/SectionNavbar.vue'
 import SectionHero from '@/components/sections/SectionHero.vue'
-import SectionPricing from '@/components/sections/SectionPricing.vue'
-import SectionTimeline from '@/components/sections/SectionTimeline.vue'
-import SectionFeatures from '@/components/sections/SectionFeatures.vue'
+import SectionServices from '@/components/sections/SectionServices.vue'
+import SectionProcess from '@/components/sections/SectionProcess.vue'
+import SectionAbout from '@/components/sections/SectionAbout.vue'
 import SectionTestimonials from '@/components/sections/SectionTestimonials.vue'
 import SectionFAQ from '@/components/sections/SectionFAQ.vue'
 import SectionCTA from '@/components/sections/SectionCTA.vue'
@@ -14,9 +14,9 @@ import SectionFooter from '@/components/sections/SectionFooter.vue'
   <SectionNavbar />
   <main>
     <SectionHero />
-    <SectionFeatures />
-    <SectionPricing />
-    <SectionTimeline />
+    <SectionServices />
+    <SectionProcess />
+    <SectionAbout />
     <SectionTestimonials />
     <SectionFAQ />
     <SectionCTA />

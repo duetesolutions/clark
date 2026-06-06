@@ -1,72 +1,48 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Accordion from '@/components/ui/Accordion.vue'
 
-const faqItems = [
-  {
-    question: 'Quanto tempo leva para meu site ficar pronto?',
-    answer:
-      'Em média 10 a 15 dias úteis após aprovação do briefing. Projetos mais complexos podem levar até 30 dias.',
-  },
-  {
-    question: 'Preciso ter um domínio antes de contratar?',
-    answer: 'Não. Ajudamos você a escolher e registrar o domínio ideal para seu negócio.',
-  },
-  {
-    question: 'O site funciona no celular?',
-    answer:
-      'Sim, todos os nossos sites são 100% responsivos e testados em diferentes dispositivos e navegadores.',
-  },
-  {
-    question: 'Posso editar o site depois?',
-    answer:
-      'Sim. Entregamos com painel administrativo intuitivo e treinamos você para fazer atualizações simples.',
-  },
-  {
-    question: 'Quais formas de pagamento?',
-    answer:
-      'Aceitamos PIX, boleto e cartão de crédito em até 12x. Consulte condições especiais para pagamento à vista.',
-  },
-  {
-    question: 'O que acontece depois da entrega?',
-    answer:
-      'Oferecemos 30 dias de suporte gratuito após a entrega. Após isso, planos mensais de manutenção a partir de R$97/mês.',
-  },
-]
+const { t } = useI18n()
+
+const faqItems = computed(() => [
+  { question: t('faq.q1'), answer: t('faq.a1') },
+  { question: t('faq.q2'), answer: t('faq.a2') },
+  { question: t('faq.q3'), answer: t('faq.a3') },
+  { question: t('faq.q4'), answer: t('faq.a4') },
+  { question: t('faq.q5'), answer: t('faq.a5') },
+])
 </script>
 
 <template>
   <section
     id="faq"
-    class="py-20 sm:py-28"
-    :style="{ backgroundColor: 'var(--color-bg)' }"
+    class="py-20"
+    style="background-color: var(--color-bg-muted);"
     aria-labelledby="faq-title"
   >
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Section header -->
-      <div class="mb-12 text-center">
+      <div class="mb-12 flex flex-col items-center text-center">
+        <!-- Green pill tag -->
+        <span
+          class="mb-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest"
+          style="background-color: rgba(70,206,122,0.12); color: var(--color-primary); font-family: var(--font-sans);"
+        >
+          ● {{ t('faq.tag') }}
+        </span>
+
         <h2
           id="faq-title"
-          class="text-3xl font-bold tracking-tight sm:text-4xl"
-          :style="{ color: 'var(--color-text)' }"
+          class="text-[32px] font-black leading-tight tracking-[-0.03em] sm:text-[48px]"
+          style="font-family: var(--font-sans); color: var(--color-text);"
         >
-          Perguntas frequentes
+          {{ t('faq.title') }}
         </h2>
-        <p
-          class="mt-4 text-lg"
-          :style="{ color: 'var(--color-text-muted)' }"
-        >
-          Tire suas dúvidas antes de começar
-        </p>
       </div>
 
-      <!-- Accordion -->
-      <div
-        class="rounded-2xl border px-6"
-        :style="{
-          borderColor: 'var(--color-border)',
-          backgroundColor: 'var(--color-surface)',
-        }"
-      >
+      <!-- Accordion container -->
+      <div class="mx-auto max-w-170">
         <Accordion :items="faqItems" :multiple="false" />
       </div>
     </div>

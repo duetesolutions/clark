@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
 import Button from '@/components/ui/Button.vue'
-
-const { t } = useI18n()
 
 const formData = reactive({
   name: '',
@@ -14,7 +11,7 @@ const formData = reactive({
 
 function handleSubmit() {
   console.log('Form submitted:', { ...formData })
-  alert(t('contact.submit_success'))
+  alert('Mensagem enviada! Entraremos em contato em breve.')
 }
 </script>
 
@@ -33,7 +30,7 @@ function handleSubmit() {
           class="mb-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest"
           style="background-color: rgba(70,206,122,0.12); color: var(--color-primary); font-family: var(--font-sans);"
         >
-          ● {{ t('contact.tag') }}
+          ● CONTATO
         </span>
 
         <h2
@@ -41,14 +38,14 @@ function handleSubmit() {
           class="text-[32px] font-black leading-tight tracking-[-0.03em] text-white sm:text-[48px]"
           style="font-family: var(--font-sans);"
         >
-          {{ t('contact.title') }}
+          Vamos construir algo juntos
         </h2>
 
         <p
           class="mx-auto mt-4 max-w-140 text-[16px] font-normal leading-relaxed"
           style="font-family: var(--font-sans); color: rgba(255,255,255,0.5);"
         >
-          {{ t('contact.subtitle') }}
+          Entre em contato e receba um diagnóstico gratuito da sua presença digital.
         </p>
       </div>
 
@@ -86,13 +83,13 @@ function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: var(--color-primary);"
               >
-                {{ t('contact.label_email') }}
+                EMAIL
               </p>
               <p
                 class="mt-0.5 text-[14px] font-normal text-white"
                 style="font-family: var(--font-sans);"
               >
-                {{ t('contact.value_email') }}
+                gabrielmonteiroduete@gmail.com
               </p>
             </div>
           </div>
@@ -122,13 +119,13 @@ function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: var(--color-primary);"
               >
-                {{ t('contact.label_whatsapp') }}
+                WHATSAPP
               </p>
               <p
                 class="mt-0.5 text-[14px] font-normal text-white"
                 style="font-family: var(--font-sans);"
               >
-                {{ t('contact.value_whatsapp') }}
+                Disponível em horário comercial
               </p>
             </div>
           </div>
@@ -161,13 +158,13 @@ function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: var(--color-primary);"
               >
-                {{ t('contact.label_location') }}
+                LOCALIZAÇÃO
               </p>
               <p
                 class="mt-0.5 text-[14px] font-normal text-white"
                 style="font-family: var(--font-sans);"
               >
-                {{ t('contact.value_location') }}
+                Brasil — atendimento remoto
               </p>
             </div>
           </div>
@@ -188,13 +185,13 @@ function handleSubmit() {
                   class="text-[11px] font-semibold uppercase tracking-widest"
                   style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
                 >
-                  {{ t('contact.form_name') }}
+                  NOME
                 </label>
                 <input
                   id="contact-name"
                   v-model="formData.name"
                   type="text"
-                  :placeholder="t('contact.form_name_placeholder')"
+                  placeholder="Seu nome"
                   autocomplete="name"
                   class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
                   style="
@@ -215,13 +212,13 @@ function handleSubmit() {
                   class="text-[11px] font-semibold uppercase tracking-widest"
                   style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
                 >
-                  {{ t('contact.form_email') }}
+                  EMAIL
                 </label>
                 <input
                   id="contact-email"
                   v-model="formData.email"
                   type="email"
-                  :placeholder="t('contact.form_email_placeholder')"
+                  placeholder="seu@email.com"
                   autocomplete="email"
                   class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
                   style="
@@ -242,7 +239,7 @@ function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
               >
-                {{ t('contact.form_need') }}
+                O QUE VOCÊ PRECISA?
               </label>
               <select
                 id="contact-need"
@@ -258,16 +255,16 @@ function handleSubmit() {
                 @blur="(e) => ((e.currentTarget as HTMLSelectElement).style.borderColor = 'rgba(255,255,255,0.1)')"
               >
                 <option value="" style="background-color: #20272F; color: rgba(255,255,255,0.3);">
-                  {{ t('contact.form_select') }}
+                  Selecione um pacote
                 </option>
                 <option value="portfolio" style="background-color: #20272F; color: white;">
-                  {{ t('contact.option_portfolio') }}
+                  Portfólio
                 </option>
                 <option value="landing-page-pro" style="background-color: #20272F; color: white;">
-                  {{ t('contact.option_landing') }}
+                  Landing Page Pro
                 </option>
                 <option value="mvp-startup" style="background-color: #20272F; color: white;">
-                  {{ t('contact.option_mvp') }}
+                  MVP de Startup
                 </option>
               </select>
             </div>
@@ -279,13 +276,13 @@ function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
               >
-                {{ t('contact.form_message') }}
+                MENSAGEM
               </label>
               <textarea
                 id="contact-message"
                 v-model="formData.message"
                 rows="4"
-                :placeholder="t('contact.form_message_placeholder')"
+                placeholder="Conte um pouco sobre seu negócio e o que você precisa..."
                 class="w-full resize-none rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
                 style="
                   background-color: rgba(255,255,255,0.08);
@@ -300,7 +297,7 @@ function handleSubmit() {
             <!-- Submit -->
             <div class="mt-6">
               <Button type="submit" variant="primary" size="lg" class="w-full">
-                {{ t('contact.form_submit') }}
+                Enviar mensagem →
               </Button>
             </div>
           </form>

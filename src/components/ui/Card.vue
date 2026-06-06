@@ -25,12 +25,34 @@ withDefaults(
 
 <style scoped>
 .card {
-  transition: transform 150ms ease, box-shadow 150ms ease;
-  border-radius: 0.75rem; /* rounded-xl */
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+  border-radius: 3px 3px 0 0;
+  z-index: 1;
 }
 
 .card:hover {
-  transform: scale(1.01);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
 }
 
 /* default */
