@@ -13,6 +13,14 @@ const { isDark } = useTheme()
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
+const logoSrc = computed(() => {
+  const isEn = lang.value === 'en'
+  const folder = isEn ? 'en' : 'pt-br'
+  const prefix = isEn ? 'en' : 'pt'
+  const theme = isDark.value ? 'dark' : 'light'
+  return `/logo/${folder}/${prefix}_${theme}_h.png`
+})
+
 const navLinks = computed(() => [
   { label: t('nav.services'), href: '#servicos' },
   { label: t('nav.process'), href: '#processo' },
@@ -66,26 +74,11 @@ onUnmounted(() => {
         style="--tw-ring-color: var(--color-primary)"
         aria-label="Duete Solutions — página inicial"
       >
-        <!-- Two green squares -->
-        <span class="flex items-center gap-1.25" aria-hidden="true">
-          <span
-            class="block rounded-xs"
-            style="width:4px; height:4px; background-color:#46CE7A; opacity:1;"
-          />
-          <span
-            class="block rounded-xs"
-            style="width:4px; height:4px; background-color:#46CE7A; opacity:0.4;"
-          />
-        </span>
-        <!-- Brand text -->
-        <span
-          class="leading-none"
-          style="font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--color-text);"
-        > Duete</span>
-        <span
-          class="leading-none"
-          style="font-family:var(--font-display); font-weight:400; font-size:15px; color:#46CE7A;"
-        > Solutions</span>
+        <img
+          :src="logoSrc"
+          alt="Duete Solutions"
+          style="height: 32px; width: auto; display: block;"
+        />
       </a>
 
       <!-- Desktop nav links -->

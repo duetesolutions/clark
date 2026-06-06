@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import useLang from '@/composables/useLang'
+import useTheme from '@/composables/useTheme'
 
 const { t } = useI18n()
+const { lang } = useLang()
+const { isDark } = useTheme()
+
+const aboutLogoSrc = computed(() => {
+  const isEn = lang.value === 'en'
+  const folder = isEn ? 'en' : 'pt-br'
+  const prefix = isEn ? 'en' : 'pt'
+  const theme = isDark.value ? 'dark' : 'light'
+  return `/logo/${folder}/${prefix}_${theme}_v.png`
+})
 
 const stats = computed(() => [
   { value: t('about.stat1_value'), label: t('about.stat1_label') },
@@ -32,43 +44,16 @@ const bullets = computed(() => [
       <div class="flex flex-col-reverse gap-12 lg:flex-row lg:items-start lg:gap-20">
         <!-- LEFT COLUMN: image placeholder + stats -->
         <div class="flex w-full flex-col gap-5 lg:w-1/2">
-          <!-- Image placeholder -->
+          <!-- Logo image -->
           <div
-            class="flex aspect-4/3 w-full flex-col items-center justify-center gap-3 rounded-3xl"
-            style="background-color: rgba(70, 206, 122, 0.12)"
-            role="img"
-            aria-label="Logo ou imagem da empresa"
+            class="flex w-full items-center justify-center rounded-3xl overflow-hidden"
+            style="background-color: rgba(70, 206, 122, 0.08); padding: 48px 32px;"
           >
-            <!-- Monitor icon -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              style="color: var(--color-text-muted)"
-              aria-hidden="true"
-            >
-              <rect
-                x="2"
-                y="3"
-                width="20"
-                height="14"
-                rx="2"
-              />
-              <path d="M8 21h8" />
-              <path d="M12 17v4" />
-            </svg>
-            <span
-              class="text-sm"
-              style="font-family: var(--font-sans); color: var(--color-text-muted)"
-            >
-              {{ t('about.image_label') }}
-            </span>
+            <img
+              :src="aboutLogoSrc"
+              alt="Duete Solutions"
+              style="max-width: 280px; width: 100%; height: auto; display: block;"
+            />
           </div>
 
           <!-- Stat cards row -->

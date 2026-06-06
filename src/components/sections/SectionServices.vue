@@ -91,7 +91,7 @@ const { t } = useI18n()
 
           <!-- Card A: Portfólio (light) -->
           <div
-            class="flex flex-col gap-5 rounded-xl p-8"
+            class="service-card flex flex-col gap-5 rounded-xl p-8"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -186,7 +186,7 @@ const { t } = useI18n()
 
           <!-- Card B: Landing Page Pro (dark / highlighted) -->
           <div
-            class="relative flex flex-col gap-5 rounded-xl p-8"
+            class="service-card relative flex flex-col gap-5 rounded-xl p-8"
             style="background-color: #20272f; border-radius: 12px;"
           >
             <!-- MAIS POPULAR badge -->
@@ -314,7 +314,7 @@ const { t } = useI18n()
 
         <!-- 1 full-width card -->
         <div
-          class="flex flex-col items-start gap-5 rounded-xl p-8 sm:flex-row sm:items-center"
+          class="service-card flex flex-col items-start gap-5 rounded-xl p-8 sm:flex-row sm:items-center"
           :style="{
             backgroundColor: 'var(--color-surface)',
             border: '1px solid var(--color-border)',
@@ -410,7 +410,7 @@ const { t } = useI18n()
 
           <!-- Card 1: Produção de Vídeo -->
           <div
-            class="flex flex-col gap-4 rounded-xl p-6"
+            class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -489,7 +489,7 @@ const { t } = useI18n()
 
           <!-- Card 2: Posts para Instagram -->
           <div
-            class="flex flex-col gap-4 rounded-xl p-6"
+            class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -563,7 +563,7 @@ const { t } = useI18n()
 
           <!-- Card 3: Marketing Digital -->
           <div
-            class="flex flex-col gap-4 rounded-xl p-6"
+            class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -640,3 +640,35 @@ const { t } = useI18n()
     </div>
   </section>
 </template>
+
+<style scoped>
+.service-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+  border-radius: 3px 3px 0 0;
+  z-index: 1;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+</style>

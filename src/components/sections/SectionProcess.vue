@@ -64,13 +64,13 @@ const steps = computed(() => [
         <li
           v-for="(step, index) in steps"
           :key="step.number"
-          class="flex gap-5"
+          class="process-step flex gap-5"
         >
           <!-- Left: badge + connector line -->
           <div class="flex flex-col items-center">
             <!-- Number badge -->
             <div
-              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+              class="step-badge flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
               style="background-color: #132227"
               aria-hidden="true"
             >
@@ -118,3 +118,23 @@ const steps = computed(() => [
     </div>
   </section>
 </template>
+
+<style scoped>
+.process-step {
+  transition: transform 200ms ease;
+  border-radius: 12px;
+  padding-right: 12px;
+}
+
+.process-step:hover {
+  transform: translateX(6px);
+}
+
+.process-step:hover .step-badge {
+  background-color: var(--color-primary) !important;
+}
+
+.step-badge {
+  transition: background-color 200ms ease;
+}
+</style>
