@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Button from '@/components/ui/Button.vue'
 
@@ -12,9 +12,56 @@ const formData = reactive({
   message: '',
 })
 
-function handleSubmit() {
-  console.log('Form submitted:', { ...formData })
-  alert(t('contact.submit_success'))
+const errors = reactive({
+  name: '',
+  email: '',
+  need: '',
+  message: '',
+})
+
+const status = ref<'idle' | 'submitting' | 'success' | 'error'>('idle')
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function validate(): boolean {
+  errors.name = formData.name.trim() ? '' : t('contact.error_required')
+  errors.need = formData.need ? '' : t('contact.error_required')
+  errors.message = formData.message.trim() ? '' : t('contact.error_required')
+
+  if (!formData.email.trim()) {
+    errors.email = t('contact.error_required')
+  } else if (!emailRegex.test(formData.email)) {
+    errors.email = t('contact.error_email_invalid')
+  } else {
+    errors.email = ''
+  }
+
+  return !errors.name && !errors.email && !errors.need && !errors.message
+}
+
+const isSubmitting = computed(() => status.value === 'submitting')
+
+async function handleSubmit() {
+  if (!validate()) return
+
+  status.value = 'submitting'
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...formData }),
+    })
+
+    if (!res.ok) throw new Error('Failed')
+
+    status.value = 'success'
+    formData.name = ''
+    formData.email = ''
+    formData.need = ''
+    formData.message = ''
+  } catch {
+    status.value = 'error'
+  }
 }
 </script>
 
@@ -28,7 +75,6 @@ function handleSubmit() {
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Section header -->
       <div class="mb-16 flex flex-col items-center text-center">
-        <!-- Green pill tag -->
         <span
           class="mb-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest"
           style="background-color: rgba(70,206,122,0.12); color: var(--color-primary); font-family: var(--font-sans);"
@@ -178,7 +224,49 @@ function handleSubmit() {
           class="rounded-2xl p-8"
           style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);"
         >
-          <form novalidate @submit.prevent="handleSubmit">
+          <!-- Success state -->
+          <div
+            v-if="status === 'success'"
+            class="flex h-full min-h-64 flex-col items-center justify-center gap-4 text-center"
+          >
+            <div
+              class="flex h-14 w-14 items-center justify-center rounded-full"
+              style="background-color: rgba(70,206,122,0.15);"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="color: var(--color-primary);"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </div>
+            <p
+              class="text-[16px] font-semibold text-white"
+              style="font-family: var(--font-sans);"
+            >
+              {{ t('contact.submit_success') }}
+            </p>
+          </div>
+
+          <!-- Form -->
+          <form v-else novalidate @submit.prevent="handleSubmit">
+            <!-- Error banner -->
+            <div
+              v-if="status === 'error'"
+              class="mb-4 rounded-lg px-4 py-3 text-sm"
+              style="background-color: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; font-family: var(--font-sans);"
+            >
+              {{ t('contact.submit_error') }}
+            </div>
+
             <!-- Row 1: Nome + Email -->
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <!-- Nome -->
@@ -197,15 +285,17 @@ function handleSubmit() {
                   :placeholder="t('contact.form_name_placeholder')"
                   autocomplete="name"
                   class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
-                  style="
-                    background-color: rgba(255,255,255,0.08);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    font-family: var(--font-sans);
-                  "
-                  @focus="(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')"
-                  @blur="(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)')"
-                  :placeholder-style="{ color: 'rgba(255,255,255,0.3)' }"
+                  :style="{
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    border: errors.name ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                    fontFamily: 'var(--font-sans)',
+                  }"
+                  @focus="(e) => { if (!errors.name) (e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)' }"
+                  @blur="(e) => { if (!errors.name) (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
                 />
+                <p v-if="errors.name" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
+                  {{ errors.name }}
+                </p>
               </div>
 
               <!-- Email -->
@@ -224,14 +314,17 @@ function handleSubmit() {
                   :placeholder="t('contact.form_email_placeholder')"
                   autocomplete="email"
                   class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
-                  style="
-                    background-color: rgba(255,255,255,0.08);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    font-family: var(--font-sans);
-                  "
-                  @focus="(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')"
-                  @blur="(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)')"
+                  :style="{
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    border: errors.email ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                    fontFamily: 'var(--font-sans)',
+                  }"
+                  @focus="(e) => { if (!errors.email) (e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)' }"
+                  @blur="(e) => { if (!errors.email) (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
                 />
+                <p v-if="errors.email" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
+                  {{ errors.email }}
+                </p>
               </div>
             </div>
 
@@ -248,14 +341,14 @@ function handleSubmit() {
                 id="contact-need"
                 v-model="formData.need"
                 class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
-                style="
-                  background-color: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.1);
-                  font-family: var(--font-sans);
-                  appearance: auto;
-                "
-                @focus="(e) => ((e.currentTarget as HTMLSelectElement).style.borderColor = 'var(--color-primary)')"
-                @blur="(e) => ((e.currentTarget as HTMLSelectElement).style.borderColor = 'rgba(255,255,255,0.1)')"
+                :style="{
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  border: errors.need ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                  fontFamily: 'var(--font-sans)',
+                  appearance: 'auto',
+                }"
+                @focus="(e) => { if (!errors.need) (e.currentTarget as HTMLSelectElement).style.borderColor = 'var(--color-primary)' }"
+                @blur="(e) => { if (!errors.need) (e.currentTarget as HTMLSelectElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
               >
                 <option value="" style="background-color: #20272F; color: rgba(255,255,255,0.3);">
                   {{ t('contact.form_select') }}
@@ -270,6 +363,9 @@ function handleSubmit() {
                   {{ t('contact.option_mvp') }}
                 </option>
               </select>
+              <p v-if="errors.need" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
+                {{ errors.need }}
+              </p>
             </div>
 
             <!-- Row 3: Mensagem -->
@@ -287,20 +383,29 @@ function handleSubmit() {
                 rows="4"
                 :placeholder="t('contact.form_message_placeholder')"
                 class="w-full resize-none rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
-                style="
-                  background-color: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.1);
-                  font-family: var(--font-sans);
-                "
-                @focus="(e) => ((e.currentTarget as HTMLTextAreaElement).style.borderColor = 'var(--color-primary)')"
-                @blur="(e) => ((e.currentTarget as HTMLTextAreaElement).style.borderColor = 'rgba(255,255,255,0.1)')"
+                :style="{
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  border: errors.message ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                  fontFamily: 'var(--font-sans)',
+                }"
+                @focus="(e) => { if (!errors.message) (e.currentTarget as HTMLTextAreaElement).style.borderColor = 'var(--color-primary)' }"
+                @blur="(e) => { if (!errors.message) (e.currentTarget as HTMLTextAreaElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
               />
+              <p v-if="errors.message" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
+                {{ errors.message }}
+              </p>
             </div>
 
             <!-- Submit -->
             <div class="mt-6">
-              <Button type="submit" variant="primary" size="lg" class="w-full">
-                {{ t('contact.form_submit') }}
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                class="w-full"
+                :disabled="isSubmitting"
+              >
+                {{ isSubmitting ? t('contact.form_submitting') : t('contact.form_submit') }}
               </Button>
             </div>
           </form>

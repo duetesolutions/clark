@@ -120,10 +120,14 @@
     "form_message": "MESSAGE",
     "form_message_placeholder": "Tell us a bit about your business and what you need...",
     "form_submit": "Send message →",
+    "form_submitting": "Sending...",
     "option_portfolio": "Portfolio",
     "option_landing": "Landing Page Pro",
     "option_mvp": "Startup MVP",
-    "submit_success": "Message sent! We'll be in touch soon."
+    "submit_success": "Message sent! We'll be in touch soon.",
+    "submit_error": "Something went wrong. Please try again.",
+    "error_required": "This field is required",
+    "error_email_invalid": "Enter a valid email address"
   },
   "footer": {
     "copy": "© 2026 Duete Solutions. All rights reserved."

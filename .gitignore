@@ -28,3 +28,4 @@ src/**/*.ts.d.ts
 *.njsproj
 *.sln
 *.sw?
+.vercel
