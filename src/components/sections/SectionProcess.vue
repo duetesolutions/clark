@@ -5,12 +5,36 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 const steps = computed(() => [
-  { number: '01', title: t('process.step1'), description: t('process.step1_desc') },
-  { number: '02', title: t('process.step2'), description: t('process.step2_desc') },
-  { number: '03', title: t('process.step3'), description: t('process.step3_desc') },
-  { number: '04', title: t('process.step4'), description: t('process.step4_desc') },
-  { number: '05', title: t('process.step5'), description: t('process.step5_desc') },
-  { number: '06', title: t('process.step6'), description: t('process.step6_desc') },
+  {
+    number: '01',
+    title: t('process.step1'),
+    description: t('process.step1_desc'),
+  },
+  {
+    number: '02',
+    title: t('process.step2'),
+    description: t('process.step2_desc'),
+  },
+  {
+    number: '03',
+    title: t('process.step3'),
+    description: t('process.step3_desc'),
+  },
+  {
+    number: '04',
+    title: t('process.step4'),
+    description: t('process.step4_desc'),
+  },
+  {
+    number: '05',
+    title: t('process.step5'),
+    description: t('process.step5_desc'),
+  },
+  {
+    number: '06',
+    title: t('process.step6'),
+    description: t('process.step6_desc'),
+  },
 ])
 </script>
 
@@ -92,10 +116,7 @@ const steps = computed(() => [
           </div>
 
           <!-- Right: text content -->
-          <div
-            class="pb-8"
-            :class="{ 'pb-0': index === steps.length - 1 }"
-          >
+          <div class="pb-8" :class="{ 'pb-0': index === steps.length - 1 }">
             <h3
               class="mb-1 text-lg font-bold leading-snug"
               style="font-family: var(--font-sans); color: var(--color-text)"
