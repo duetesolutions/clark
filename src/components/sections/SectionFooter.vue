@@ -15,34 +15,15 @@ const { t } = useI18n()
       <!-- Left: Logo -->
       <a
         href="/"
-        class="flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:rounded-sm"
+        class="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:rounded-sm"
         style="--tw-ring-color: var(--color-primary);"
         aria-label="Duete Solutions — página inicial"
       >
-        <!-- Two green squares -->
-        <span class="flex items-center gap-1" aria-hidden="true">
-          <span
-            class="block rounded-xs"
-            style="width: 8px; height: 8px; background-color: #46CE7A; opacity: 1;"
-          />
-          <span
-            class="block rounded-xs"
-            style="width: 8px; height: 8px; background-color: #46CE7A; opacity: 0.4;"
-          />
-        </span>
-        <!-- Brand text -->
-        <span
-          class="leading-none"
-          style="font-family: var(--font-display); font-weight: 700; font-size: 15px; color: white;"
-        >
-          Duete
-        </span>
-        <span
-          class="leading-none"
-          style="font-family: var(--font-display); font-weight: 400; font-size: 15px; color: #46CE7A;"
-        >
-          Solutions
-        </span>
+        <img
+          src="/logo/en/en_dark_h.png"
+          alt="Duete Solutions"
+          style="height: 28px; width: auto; display: block;"
+        />
       </a>
 
       <!-- Right: Copyright -->

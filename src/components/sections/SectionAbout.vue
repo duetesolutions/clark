@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useLang from '@/composables/useLang'
 import useTheme from '@/composables/useTheme'
 
 const { t } = useI18n()
-const { lang } = useLang()
 const { isDark } = useTheme()
 
 const aboutLogoSrc = computed(() => {
-  const isEn = lang.value === 'en'
-  const folder = isEn ? 'en' : 'pt-br'
-  const prefix = isEn ? 'en' : 'pt'
   const theme = isDark.value ? 'dark' : 'light'
-  return `/logo/${folder}/${prefix}_${theme}_v.png`
+  return `/logo/en/en_${theme}_v.png`
 })
 
 const stats = computed(() => [

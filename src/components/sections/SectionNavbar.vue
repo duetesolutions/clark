@@ -14,11 +14,8 @@ const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
 const logoSrc = computed(() => {
-  const isEn = lang.value === 'en'
-  const folder = isEn ? 'en' : 'pt-br'
-  const prefix = isEn ? 'en' : 'pt'
   const theme = isDark.value ? 'dark' : 'light'
-  return `/logo/${folder}/${prefix}_${theme}_h.png`
+  return `/logo/en/en_${theme}_h.png`
 })
 
 const navLinks = computed(() => [
