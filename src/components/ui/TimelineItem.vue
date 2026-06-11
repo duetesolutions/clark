@@ -4,9 +4,11 @@ withDefaults(
     step: number | string
     title: string
     description: string
+    label?: string
     isLast?: boolean
   }>(),
   {
+    label: '',
     isLast: false,
   },
 )
@@ -24,6 +26,7 @@ withDefaults(
 
     <!-- Right column: title + description -->
     <div class="timeline-item__content">
+      <span v-if="label" class="timeline-item__label">{{ label }}</span>
       <h3 class="timeline-item__title">{{ title }}</h3>
       <p class="timeline-item__description">{{ description }}</p>
     </div>
@@ -78,6 +81,17 @@ withDefaults(
   padding-bottom: 2rem;
   flex: 1;
   min-width: 0;
+}
+
+.timeline-item__label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
 }
 
 .timeline-item__title {

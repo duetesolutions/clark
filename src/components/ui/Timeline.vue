@@ -6,6 +6,7 @@ defineProps<{
     step?: number | string
     title: string
     description: string
+    label?: string
   }>
 }>()
 </script>
@@ -18,6 +19,7 @@ defineProps<{
       :step="item.step ?? index + 1"
       :title="item.title"
       :description="item.description"
+      :label="item.label"
       :isLast="index === items.length - 1"
     />
   </div>
