@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 
-const packageViewPath = '../views/PackageView.vue'
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -12,7 +10,7 @@ const router = createRouter({
     },
     {
       path: '/pacotes/:slug',
-      component: () => import(/* @vite-ignore */ packageViewPath),
+      component: () => import('@/views/PackageView.vue'),
     },
   ],
   scrollBehavior(to, _from, savedPosition) {
