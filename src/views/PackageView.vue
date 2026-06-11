@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import SectionNavbar from '@/components/sections/SectionNavbar.vue'
@@ -18,14 +18,15 @@ const SLUG_TO_KEY: Record<string, string> = {
   'landing-page': 'landing',
 }
 
-const packageKey = computed(() => {
-  const key = SLUG_TO_KEY[route.params.slug as string]
-  if (!key) {
-    router.replace('/')
-    return null
-  }
-  return key
-})
+const packageKey = computed(() => SLUG_TO_KEY[route.params.slug as string] ?? null)
+
+watch(
+  packageKey,
+  (key) => {
+    if (!key) router.replace('/')
+  },
+  { immediate: true },
+)
 
 const features = computed((): string[] => {
   if (!packageKey.value) return []
@@ -166,8 +167,8 @@ const faqItems = computed(
   gap: 0.5rem;
   padding: 0.375rem 1rem;
   border-radius: 100px;
-  background-color: rgba(70, 206, 122, 0.12);
-  border: 1px solid rgba(70, 206, 122, 0.25);
+  background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
   color: var(--color-primary);
   font-family: var(--font-display);
   font-size: 0.6875rem;
