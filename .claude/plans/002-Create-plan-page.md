@@ -1,20 +1,33 @@
 # Pacote de Entrada — Package Detail Page
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use
+> superpowers:subagent-driven-development (recommended) or
+> superpowers:executing-plans to implement this plan task-by-task. Steps use
+> checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Create a routed package detail page (adapting the `Pacote de Entrada (standalone).html` prototype) reachable from the "Ver detalhes do pacote →" links in SectionServices.
+**Goal:** Create a routed package detail page (adapting the
+`Pacote de Entrada (standalone).html` prototype) reachable from the "Ver
+detalhes do pacote →" links in SectionServices.
 
-**Architecture:** Install vue-router; refactor App.vue into a thin RouterView shell with HomeView.vue holding current content; create PackageView.vue at `/pacotes/:slug` using existing UI components (Card, Timeline, Accordion, Button) and CSS variables — no inline styles; add i18n keys for both packages (portfolio + landing-page).
+**Architecture:** Install vue-router; refactor App.vue into a thin RouterView
+shell with HomeView.vue holding current content; create PackageView.vue at
+`/pacotes/:slug` using existing UI components (Card, Timeline, Accordion,
+Button) and CSS variables — no inline styles; add i18n keys for both packages
+(portfolio + landing-page).
 
-**Tech Stack:** Vue 3 + Composition API, vue-router 4, vue-i18n 11, Tailwind v4, vitest + @vue/test-utils 2, happy-dom
+**Tech Stack:** Vue 3 + Composition API, vue-router 4, vue-i18n 11, Tailwind v4,
+vitest + @vue/test-utils 2, happy-dom
 
-**Design reference:** Open `Pacote de Entrada (standalone).html` in a browser before implementing PackageView.vue. The prototype uses the same green (#46ce7a) and dark (#20272F) palette already in the project's CSS variables.
+**Design reference:** Open `Pacote de Entrada (standalone).html` in a browser
+before implementing PackageView.vue. The prototype uses the same green (#46ce7a)
+and dark (#20272F) palette already in the project's CSS variables.
 
 ---
 
 ### Task 1: Install dependencies + configure Vitest DOM environment
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `vite.config.ts`
 
@@ -28,10 +41,11 @@ npm install -D happy-dom
 - [ ] **Step 2: Add test block to vite.config.ts**
 
 Current `vite.config.ts`:
+
 ```ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
@@ -42,10 +56,11 @@ export default defineConfig({
 ```
 
 Replace with:
+
 ```ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
@@ -65,7 +80,8 @@ export default defineConfig({
 npx vitest run
 ```
 
-Expected: `No test files found, exiting with code 1` — confirms the runner works.
+Expected: `No test files found, exiting with code 1` — confirms the runner
+works.
 
 - [ ] **Step 4: Commit**
 
@@ -79,6 +95,7 @@ git commit -m "chore: add vue-router and configure vitest with happy-dom"
 ### Task 2: Create router + refactor App.vue → HomeView.vue
 
 **Files:**
+
 - Create: `src/router/index.ts`
 - Create: `src/views/HomeView.vue`
 - Modify: `src/App.vue`
@@ -87,21 +104,22 @@ git commit -m "chore: add vue-router and configure vitest with happy-dom"
 - [ ] **Step 1: Write failing test for router**
 
 Create `tests/router/router.spec.ts`:
+
 ```ts
-import { describe, it, expect } from 'vitest'
-import { createMemoryHistory, createRouter } from 'vue-router'
 import router from '@/router/index'
+import { describe, expect, it } from 'vitest'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 describe('router', () => {
   it('has a route for /', () => {
     const routes = router.getRoutes()
-    const home = routes.find((r) => r.path === '/')
+    const home = routes.find(r => r.path === '/')
     expect(home).toBeDefined()
   })
 
   it('has a route for /pacotes/:slug', () => {
     const routes = router.getRoutes()
-    const pkg = routes.find((r) => r.path === '/pacotes/:slug')
+    const pkg = routes.find(r => r.path === '/pacotes/:slug')
     expect(pkg).toBeDefined()
   })
 })
@@ -118,8 +136,8 @@ Expected: FAIL — `Cannot find module '@/router/index'`
 - [ ] **Step 3: Create src/router/index.ts**
 
 ```ts
-import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -184,15 +202,15 @@ import SectionTestimonials from '@/components/sections/SectionTestimonials.vue'
 - [ ] **Step 6: Update src/main.ts to install router**
 
 ```ts
+import { MotionPlugin } from '@vueuse/motion'
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import { MotionPlugin } from '@vueuse/motion'
+
 import App from './App.vue'
 import './assets/main.css'
-import router from './router'
-
-import pt from './locales/pt-br.json'
 import en from './locales/en.json'
+import pt from './locales/pt-br.json'
+import router from './router'
 
 const i18n = createI18n({
   legacy: false,
@@ -232,12 +250,14 @@ git commit -m "feat: add vue-router, extract HomeView from App.vue"
 ### Task 3: Add i18n keys for package pages
 
 **Files:**
+
 - Modify: `src/locales/pt-br.json`
 - Modify: `src/locales/en.json`
 
 - [ ] **Step 1: Add `package` key to src/locales/pt-br.json**
 
-Append the following object as a top-level key in `src/locales/pt-br.json` (before the closing `}`):
+Append the following object as a top-level key in `src/locales/pt-br.json`
+(before the closing `}`):
 
 ```json
   "package": {
@@ -310,7 +330,8 @@ Append the following object as a top-level key in `src/locales/pt-br.json` (befo
 
 - [ ] **Step 2: Add `package` key to src/locales/en.json**
 
-Append the following object as a top-level key in `src/locales/en.json` (before the closing `}`):
+Append the following object as a top-level key in `src/locales/en.json` (before
+the closing `}`):
 
 ```json
   "package": {
@@ -393,6 +414,7 @@ git commit -m "feat: add i18n keys for package detail pages (portfolio + landing
 ### Task 4: Create PackageView.vue
 
 **Files:**
+
 - Create: `src/views/PackageView.vue`
 
 - [ ] **Step 1: Write failing test**
@@ -400,13 +422,13 @@ git commit -m "feat: add i18n keys for package detail pages (portfolio + landing
 Create `tests/views/PackageView.spec.ts`:
 
 ```ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { createI18n } from 'vue-i18n'
-import { createRouter, createMemoryHistory } from 'vue-router'
-import PackageView from '@/views/PackageView.vue'
-import pt from '@/locales/pt-br.json'
 import en from '@/locales/en.json'
+import pt from '@/locales/pt-br.json'
+import PackageView from '@/views/PackageView.vue'
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { createI18n } from 'vue-i18n'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 function makeI18n() {
   return createI18n({
@@ -489,7 +511,7 @@ describe('PackageView', () => {
         stubs: { SectionNavbar: true, SectionFooter: true },
       },
     })
-    await new Promise((r) => setTimeout(r, 0))
+    await new Promise(r => setTimeout(r, 0))
     expect(pushSpy).toHaveBeenCalledWith('/')
   })
 })
@@ -507,15 +529,15 @@ Expected: FAIL — `Cannot find module '@/views/PackageView.vue'`
 
 ```vue
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import SectionNavbar from '@/components/sections/SectionNavbar.vue'
 import SectionFooter from '@/components/sections/SectionFooter.vue'
+import SectionNavbar from '@/components/sections/SectionNavbar.vue'
+import Accordion from '@/components/ui/Accordion.vue'
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
 import Timeline from '@/components/ui/Timeline.vue'
-import Accordion from '@/components/ui/Accordion.vue'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -551,15 +573,13 @@ const timeline = computed(
   },
 )
 
-const faqItems = computed(
-  (): Array<{ question: string; answer: string }> => {
-    if (!packageKey.value) return []
-    return tm(`package.${packageKey.value}.faq`) as Array<{
-      question: string
-      answer: string
-    }>
-  },
-)
+const faqItems = computed((): Array<{ question: string; answer: string }> => {
+  if (!packageKey.value) return []
+  return tm(`package.${packageKey.value}.faq`) as Array<{
+    question: string
+    answer: string
+  }>
+})
 </script>
 
 <template>
@@ -585,7 +605,9 @@ const faqItems = computed(
         </p>
 
         <div class="package-hero__price">
-          <span class="package-hero__price-from">{{ t('package.price_from') }}</span>
+          <span class="package-hero__price-from">{{
+            t('package.price_from')
+          }}</span>
           <span class="package-hero__price-value">
             {{ t(`package.${packageKey}.price`) }}
           </span>
@@ -609,7 +631,9 @@ const faqItems = computed(
             variant="feature"
             class="package-feature-item"
           >
-            <span class="package-feature-item__check" aria-hidden="true">✓</span>
+            <span class="package-feature-item__check" aria-hidden="true"
+              >✓</span
+            >
             <span class="package-feature-item__text">{{ feature }}</span>
           </Card>
         </div>
@@ -849,9 +873,13 @@ Expected: PASS — 8 tests pass
 
 - [ ] **Step 5: Verify in dev server**
 
-Navigate to `http://localhost:5173/pacotes/portfolio` — package detail page for Portfólio should render with green tag, price R$ 700, 7 feature cards, 5-step timeline, 4 FAQ items.
+Navigate to `http://localhost:5173/pacotes/portfolio` — package detail page for
+Portfólio should render with green tag, price R$ 700, 7 feature cards, 5-step
+timeline, 4 FAQ items.
 
-Navigate to `http://localhost:5173/pacotes/landing-page` — package detail page for Landing Page Pro should render with price R$ 1.200, 7 feature cards, 5-step timeline, 4 FAQ items.
+Navigate to `http://localhost:5173/pacotes/landing-page` — package detail page
+for Landing Page Pro should render with price R$ 1.200, 7 feature cards, 5-step
+timeline, 4 FAQ items.
 
 Navigate to `http://localhost:5173/pacotes/unknown` — should redirect to `/`.
 
@@ -867,6 +895,7 @@ git commit -m "feat: create PackageView for /pacotes/:slug route"
 ### Task 5: Update SectionServices to link to package routes
 
 **Files:**
+
 - Modify: `src/components/sections/SectionServices.vue`
 
 - [ ] **Step 1: Write failing test**
@@ -874,13 +903,13 @@ git commit -m "feat: create PackageView for /pacotes/:slug route"
 Create `tests/components/SectionServices.spec.ts`:
 
 ```ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { createI18n } from 'vue-i18n'
-import { createRouter, createMemoryHistory } from 'vue-router'
 import SectionServices from '@/components/sections/SectionServices.vue'
-import pt from '@/locales/pt-br.json'
 import en from '@/locales/en.json'
+import pt from '@/locales/pt-br.json'
+import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { createI18n } from 'vue-i18n'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 function setup() {
   const i18n = createI18n({
@@ -909,7 +938,7 @@ describe('SectionServices', () => {
     })
     const links = wrapper.findAllComponents({ name: 'RouterLink' })
     const portfolioLink = links.find(
-      (l) => l.props('to') === '/pacotes/portfolio',
+      l => l.props('to') === '/pacotes/portfolio',
     )
     expect(portfolioLink).toBeDefined()
   })
@@ -923,7 +952,7 @@ describe('SectionServices', () => {
     })
     const links = wrapper.findAllComponents({ name: 'RouterLink' })
     const landingLink = links.find(
-      (l) => l.props('to') === '/pacotes/landing-page',
+      l => l.props('to') === '/pacotes/landing-page',
     )
     expect(landingLink).toBeDefined()
   })
@@ -936,69 +965,74 @@ describe('SectionServices', () => {
 npx vitest run tests/components/SectionServices.spec.ts
 ```
 
-Expected: FAIL — `portfolioLink` and `landingLink` are undefined (links currently use `href="#"` not RouterLink)
+Expected: FAIL — `portfolioLink` and `landingLink` are undefined (links
+currently use `href="#"` not RouterLink)
 
 - [ ] **Step 3: Replace `href="#"` links in SectionServices.vue**
 
-In `src/components/sections/SectionServices.vue`, find the Portfólio card's details link:
+In `src/components/sections/SectionServices.vue`, find the Portfólio card's
+details link:
 
 ```html
-            <!-- Link -->
-            <a
-              href="#"
-              class="group inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
+<!-- Link -->
+<a
+  href="#"
+  class="group inline-flex items-center gap-1 text-sm hover:underline"
+  :style="{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '14px',
                 color: 'var(--color-primary)',
                 textDecoration: 'none',
               }"
-            >
-              {{ t('services.details_link') }}
-            </a>
+>
+  {{ t('services.details_link') }}
+</a>
 ```
 
 Replace with:
+
 ```html
-            <!-- Link -->
-            <RouterLink
-              to="/pacotes/portfolio"
-              class="group inline-flex items-center gap-1 text-sm hover:underline service-details-link"
-            >
-              {{ t('services.details_link') }}
-            </RouterLink>
+<!-- Link -->
+<RouterLink
+  to="/pacotes/portfolio"
+  class="group inline-flex items-center gap-1 text-sm hover:underline service-details-link"
+>
+  {{ t('services.details_link') }}
+</RouterLink>
 ```
 
 Find the Landing Page Pro card's details link:
 
 ```html
-            <!-- Link -->
-            <a
-              href="#"
-              class="inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
+<!-- Link -->
+<a
+  href="#"
+  class="inline-flex items-center gap-1 text-sm hover:underline"
+  :style="{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '14px',
                 color: 'var(--color-primary)',
                 textDecoration: 'none',
               }"
-            >
-              {{ t('services.details_link') }}
-            </a>
+>
+  {{ t('services.details_link') }}
+</a>
 ```
 
 Replace with:
+
 ```html
-            <!-- Link -->
-            <RouterLink
-              to="/pacotes/landing-page"
-              class="inline-flex items-center gap-1 text-sm hover:underline service-details-link"
-            >
-              {{ t('services.details_link') }}
-            </RouterLink>
+<!-- Link -->
+<RouterLink
+  to="/pacotes/landing-page"
+  class="inline-flex items-center gap-1 text-sm hover:underline service-details-link"
+>
+  {{ t('services.details_link') }}
+</RouterLink>
 ```
 
-- [ ] **Step 4: Add CSS class for the link in SectionServices.vue `<style scoped>` block**
+- [ ] **Step 4: Add CSS class for the link in SectionServices.vue
+      `<style scoped>` block**
 
 Add to the existing `<style scoped>` section:
 
@@ -1021,7 +1055,10 @@ Expected: PASS — 2 tests pass
 
 - [ ] **Step 6: Verify in dev server**
 
-Open `http://localhost:5173`. Click "Ver detalhes do pacote →" on the Portfólio card — should navigate to `/pacotes/portfolio`. Click browser back. Click "Ver detalhes do pacote →" on the Landing Page Pro card — should navigate to `/pacotes/landing-page`.
+Open `http://localhost:5173`. Click "Ver detalhes do pacote →" on the Portfólio
+card — should navigate to `/pacotes/portfolio`. Click browser back. Click "Ver
+detalhes do pacote →" on the Landing Page Pro card — should navigate to
+`/pacotes/landing-page`.
 
 - [ ] **Step 7: Commit**
 
@@ -1042,7 +1079,8 @@ git commit -m "feat: link service cards to package detail routes"
 npx vitest run
 ```
 
-Expected: PASS — all test files pass (router: 2, PackageView: 8, SectionServices: 2 = 12 total)
+Expected: PASS — all test files pass (router: 2, PackageView: 8,
+SectionServices: 2 = 12 total)
 
 - [ ] **Step 2: Run TypeScript check**
 
@@ -1059,14 +1097,21 @@ npm run dev
 ```
 
 Checklist:
+
 - `http://localhost:5173/` — home page renders without regression
-- `http://localhost:5173/pacotes/portfolio` — Portfólio package page: tag, title, price, 7 features, 5 timeline steps, 4 FAQ items, CTA button
-- `http://localhost:5173/pacotes/landing-page` — Landing Page Pro: tag, title, price R$1.200, 7 features, 5 timeline steps, 4 FAQ items
+- `http://localhost:5173/pacotes/portfolio` — Portfólio package page: tag,
+  title, price, 7 features, 5 timeline steps, 4 FAQ items, CTA button
+- `http://localhost:5173/pacotes/landing-page` — Landing Page Pro: tag, title,
+  price R$1.200, 7 features, 5 timeline steps, 4 FAQ items
 - `http://localhost:5173/pacotes/qualquer-coisa` — redirects to `/`
-- Home page → click "Ver detalhes do pacote →" on Portfólio → navigates to `/pacotes/portfolio` ✓
-- Home page → click "Ver detalhes do pacote →" on Landing Page Pro → navigates to `/pacotes/landing-page` ✓
-- Package page → click "← Voltar para planos" → goes to `/#servicos` (scrolls to services section) ✓
-- Package page → click "Falar com a equipe →" → goes to `/#contato` (scrolls to contact form) ✓
+- Home page → click "Ver detalhes do pacote →" on Portfólio → navigates to
+  `/pacotes/portfolio` ✓
+- Home page → click "Ver detalhes do pacote →" on Landing Page Pro → navigates
+  to `/pacotes/landing-page` ✓
+- Package page → click "← Voltar para planos" → goes to `/#servicos` (scrolls to
+  services section) ✓
+- Package page → click "Falar com a equipe →" → goes to `/#contato` (scrolls to
+  contact form) ✓
 
 - [ ] **Step 4: Commit**
 
