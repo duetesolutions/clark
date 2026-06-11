@@ -169,19 +169,12 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <!-- Link -->
-            <a
-              href="#"
-              class="group inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '14px',
-                color: 'var(--color-primary)',
-                textDecoration: 'none',
-              }"
+            <RouterLink
+              to="/pacotes/portfolio"
+              class="group inline-flex items-center gap-1 text-sm hover:underline service-details-link"
             >
               {{ t('services.details_link') }}
-            </a>
+            </RouterLink>
           </div>
 
           <!-- Card B: Landing Page Pro (dark / highlighted) -->
@@ -273,19 +266,12 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <!-- Link -->
-            <a
-              href="#"
-              class="inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '14px',
-                color: 'var(--color-primary)',
-                textDecoration: 'none',
-              }"
+            <RouterLink
+              to="/pacotes/landing-page"
+              class="inline-flex items-center gap-1 text-sm hover:underline service-details-link"
             >
               {{ t('services.details_link') }}
-            </a>
+            </RouterLink>
           </div>
 
         </div>
@@ -642,6 +628,13 @@ const { t } = useI18n()
 </template>
 
 <style scoped>
+.service-details-link {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
 .service-card {
   position: relative;
   overflow: hidden;
