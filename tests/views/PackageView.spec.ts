@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
 import { createRouter, createMemoryHistory } from 'vue-router'
@@ -19,15 +19,15 @@ function makeRouter() {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: '/pacotes/:slug', component: PackageView },
       { path: '/', component: { template: '<div />' } },
+      { path: '/pacote-de-entrada', component: PackageView },
     ],
   })
 }
 
-async function mountForSlug(slug: string) {
+async function mountView() {
   const router = makeRouter()
-  await router.push(`/pacotes/${slug}`)
+  await router.push('/pacote-de-entrada')
   await router.isReady()
   return mount(PackageView, {
     global: {
@@ -38,53 +38,66 @@ async function mountForSlug(slug: string) {
 }
 
 describe('PackageView', () => {
-  it('renders portfolio package name', async () => {
-    const wrapper = await mountForSlug('portfolio')
-    expect(wrapper.text()).toContain('Site Portfólio')
+  it('renders the hero title', async () => {
+    const wrapper = await mountView()
+    expect(wrapper.text()).toContain('Presença digital profissional para o seu negócio')
   })
 
-  it('renders portfolio price', async () => {
-    const wrapper = await mountForSlug('portfolio')
-    expect(wrapper.text()).toContain('R$ 700')
+  it('renders both setup and maintenance prices', async () => {
+    const wrapper = await mountView()
+    expect(wrapper.text()).toContain('R$ 700 – R$ 2.500')
+    expect(wrapper.text()).toContain('R$ 120/mês')
   })
 
-  it('renders landing package name', async () => {
-    const wrapper = await mountForSlug('landing-page')
-    expect(wrapper.text()).toContain('Landing Page Pro')
+  it('renders all delivery items from the items list', async () => {
+    const wrapper = await mountView()
+    const rows = wrapper.findAll('.package-table__row')
+    expect(rows).toHaveLength(9)
+    expect(wrapper.text()).toContain('Landing page responsiva (celular + computador)')
   })
 
-  it('renders landing price', async () => {
-    const wrapper = await mountForSlug('landing-page')
-    expect(wrapper.text()).toContain('R$ 1.200')
+  it('marks the "to be agreed" item with the off status', async () => {
+    const wrapper = await mountView()
+    const off = wrapper.find('.package-status--off')
+    expect(off.exists()).toBe(true)
+    expect(off.text()).toContain('A combinar')
   })
 
-  it('renders features list for portfolio', async () => {
-    const wrapper = await mountForSlug('portfolio')
-    expect(wrapper.text()).toContain('Design personalizado (sem templates)')
+  it('renders the maintenance bullet list', async () => {
+    const wrapper = await mountView()
+    const bullets = wrapper.findAll('.package-list__item')
+    expect(bullets).toHaveLength(5)
+    expect(wrapper.text()).toContain('Hospedagem na Vercel (infraestrutura de nível enterprise)')
   })
 
-  it('renders timeline steps for portfolio', async () => {
-    const wrapper = await mountForSlug('portfolio')
-    expect(wrapper.text()).toContain('Briefing')
+  it('renders the timeline with day labels via TimelineItem', async () => {
+    const wrapper = await mountView()
+    const labels = wrapper.findAll('.timeline-item__label')
+    expect(labels).toHaveLength(6)
+    expect(wrapper.text()).toContain('DIAS 15 – 17')
+    expect(wrapper.text()).toContain('Entrega oficial')
   })
 
-  it('renders FAQ for portfolio', async () => {
-    const wrapper = await mountForSlug('portfolio')
-    expect(wrapper.text()).toContain('Quais seções estão incluídas?')
+  it('renders the warning note', async () => {
+    const wrapper = await mountView()
+    expect(wrapper.find('.package-warning').exists()).toBe(true)
+    expect(wrapper.text()).toContain('Atenção:')
   })
 
-  it('redirects to / for unknown slug', async () => {
-    const router = makeRouter()
-    const replaceSpy = vi.spyOn(router, 'replace')
-    await router.push('/pacotes/unknown')
-    await router.isReady()
-    mount(PackageView, {
-      global: {
-        plugins: [makeI18n(), router],
-        stubs: { SectionNavbar: true, SectionFooter: true },
-      },
-    })
-    await new Promise((r) => setTimeout(r, 0))
-    expect(replaceSpy).toHaveBeenCalledWith('/')
+  it('renders the terms rows', async () => {
+    const wrapper = await mountView()
+    const rows = wrapper.findAll('.package-terms__row')
+    expect(rows).toHaveLength(6)
+    expect(wrapper.text()).toContain('PAGAMENTO')
+    expect(wrapper.text()).toContain('25% na assinatura do contrato, 75% na entrega.')
+  })
+
+  it('renders the CTA with a link to the contact section', async () => {
+    const wrapper = await mountView()
+    const link = wrapper.findAllComponents({ name: 'RouterLink' }).find(
+      (l) => l.props('to') === '/#contato',
+    )
+    expect(link).toBeDefined()
+    expect(wrapper.text()).toContain('Vamos começar?')
   })
 })

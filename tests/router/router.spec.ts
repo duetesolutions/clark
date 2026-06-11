@@ -8,9 +8,9 @@ describe('router', () => {
     expect(home).toBeDefined()
   })
 
-  it('has a route for /pacotes/:slug', () => {
+  it('has a route for /pacote-de-entrada', () => {
     const routes = router.getRoutes()
-    const pkg = routes.find((r) => r.path === '/pacotes/:slug')
+    const pkg = routes.find((r) => r.path === '/pacote-de-entrada')
     expect(pkg).toBeDefined()
   })
 })

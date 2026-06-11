@@ -17,34 +17,23 @@ function setup() {
     history: createMemoryHistory(),
     routes: [
       { path: '/', component: { template: '<div />' } },
-      { path: '/pacotes/:slug', component: { template: '<div />' } },
+      { path: '/pacote-de-entrada', component: { template: '<div />' } },
     ],
   })
   return { i18n, router }
 }
 
 describe('SectionServices', () => {
-  it('portfolio card links to /pacotes/portfolio', async () => {
+  it('both site/app cards link to /pacote-de-entrada', async () => {
     const { i18n, router } = setup()
     await router.push('/')
     await router.isReady()
     const wrapper = mount(SectionServices, {
       global: { plugins: [i18n, router] },
     })
-    const links = wrapper.findAllComponents({ name: 'RouterLink' })
-    const portfolioLink = links.find((l) => l.props('to') === '/pacotes/portfolio')
-    expect(portfolioLink).toBeDefined()
-  })
-
-  it('landing card links to /pacotes/landing-page', async () => {
-    const { i18n, router } = setup()
-    await router.push('/')
-    await router.isReady()
-    const wrapper = mount(SectionServices, {
-      global: { plugins: [i18n, router] },
-    })
-    const links = wrapper.findAllComponents({ name: 'RouterLink' })
-    const landingLink = links.find((l) => l.props('to') === '/pacotes/landing-page')
-    expect(landingLink).toBeDefined()
+    const links = wrapper
+      .findAllComponents({ name: 'RouterLink' })
+      .filter((l) => l.props('to') === '/pacote-de-entrada')
+    expect(links).toHaveLength(2)
   })
 })

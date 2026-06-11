@@ -9,7 +9,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/pacotes/:slug',
+      path: '/pacote-de-entrada',
       component: () => import('@/views/PackageView.vue'),
     },
   ],

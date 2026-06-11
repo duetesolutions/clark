@@ -170,7 +170,7 @@ const { t } = useI18n()
             </div>
 
             <RouterLink
-              to="/pacotes/portfolio"
+              to="/pacote-de-entrada"
               class="group inline-flex items-center gap-1 text-sm hover:underline service-details-link"
             >
               {{ t('services.details_link') }}
@@ -267,7 +267,7 @@ const { t } = useI18n()
             </div>
 
             <RouterLink
-              to="/pacotes/landing-page"
+              to="/pacote-de-entrada"
               class="inline-flex items-center gap-1 text-sm hover:underline service-details-link"
             >
               {{ t('services.details_link') }}
