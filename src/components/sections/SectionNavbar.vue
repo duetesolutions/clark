@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { RouterLink } from 'vue-router'
 import Button from '@/components/ui/Button.vue'
 import ThemeToggle from '@/components/ui/ThemeToggle.vue'
 import useLang from '@/composables/useLang'
 import useTheme from '@/composables/useTheme'
+
+withDefaults(
+  defineProps<{
+    backLink?: boolean
+  }>(),
+  {
+    backLink: false,
+  },
+)
 
 const { t } = useI18n()
 const { lang, setLang } = useLang()
@@ -79,7 +89,7 @@ onUnmounted(() => {
       </a>
 
       <!-- Desktop nav links -->
-      <ul class="hidden items-center lg:flex" style="gap:32px;" role="list">
+      <ul v-if="!backLink" class="hidden items-center lg:flex" style="gap:32px;" role="list">
         <li v-for="link in navLinks" :key="link.href">
           <a
             :href="link.href"
@@ -149,8 +159,32 @@ onUnmounted(() => {
           </button>
         </div>
 
+        <!-- Back to site link (backLink mode) -->
+        <RouterLink
+          v-if="backLink"
+          to="/"
+          class="nav-back-link inline-flex items-center gap-1.5"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          {{ t('package.back_to_site') }}
+        </RouterLink>
+
         <!-- "Fale conosco" CTA (desktop) -->
-        <div class="hidden lg:block">
+        <div v-if="!backLink" class="hidden lg:block">
           <a href="#contato">
             <Button
               variant="primary"
@@ -164,6 +198,7 @@ onUnmounted(() => {
 
         <!-- Hamburger (mobile only) -->
         <button
+          v-if="!backLink"
           type="button"
           class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:hidden"
           :style="{
@@ -224,7 +259,7 @@ onUnmounted(() => {
       leave-to-class="opacity-0 -translate-y-2"
     >
       <div
-        v-if="isMobileMenuOpen"
+        v-if="isMobileMenuOpen && !backLink"
         id="mobile-menu"
         class="lg:hidden"
         :style="{
@@ -264,3 +299,18 @@ onUnmounted(() => {
     </Transition>
   </header>
 </template>
+
+<style scoped>
+.nav-back-link {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.nav-back-link:hover {
+  color: var(--color-primary);
+}
+</style>
