@@ -129,6 +129,72 @@
     "error_required": "This field is required",
     "error_email_invalid": "Enter a valid email address"
   },
+  "package": {
+    "back": "← Back to plans",
+    "price_from": "starting from",
+    "includes_title": "WHAT'S INCLUDED",
+    "process_title": "HOW IT WORKS",
+    "faq_title": "FREQUENTLY ASKED QUESTIONS",
+    "cta_title": "Ready to get started?",
+    "cta_subtitle": "Get in touch and receive a free audit of your project.",
+    "cta_button": "Talk to the team →",
+    "portfolio": {
+      "tag": "PORTFOLIO",
+      "name": "Portfolio Website",
+      "price": "R$ 700",
+      "subtitle": "A clean, fast, and professional digital presence. Ideal for service providers who want to be found online and build credibility.",
+      "features": [
+        "Custom design (no templates)",
+        "Up to 5 sections",
+        "Basic SEO (meta tags + sitemap)",
+        "Integrated contact form",
+        "Responsive: mobile, tablet, and desktop",
+        "Deploy + domain setup",
+        "Delivery in up to 15 business days"
+      ],
+      "timeline": [
+        { "step": "01", "title": "Briefing", "description": "You share content and references. We align the structure and goals of the site." },
+        { "step": "02", "title": "Design", "description": "We create a custom layout based on your brand, focused on clarity and conversion." },
+        { "step": "03", "title": "Development", "description": "We implement the design in code, with technical SEO, contact form, and performance optimization." },
+        { "step": "04", "title": "Review", "description": "You review and we approve together. Up to 2 rounds of adjustments included." },
+        { "step": "05", "title": "Launch", "description": "Deploy to your domain with SSL certificate. Your site goes live." }
+      ],
+      "faq": [
+        { "question": "Which sections are included?", "answer": "The package includes up to 5 sections (e.g. Hero, About, Services, Testimonials, and Contact). Additional sections can be quoted separately." },
+        { "question": "Do I need domain and hosting?", "answer": "No. We handle all the configuration. If you already have a domain, just transfer access. If not, we'll guide you through the purchase." },
+        { "question": "Can I update the site myself afterwards?", "answer": "Yes. We deliver the source code and can set up a simple editing panel if needed." },
+        { "question": "What is the delivery timeframe?", "answer": "On average 10 to 15 business days after briefing approval." }
+      ]
+    },
+    "landing": {
+      "tag": "LANDING PAGE PRO",
+      "name": "Landing Page Pro",
+      "price": "R$ 1,200",
+      "subtitle": "A complete digital solution focused on conversion: advanced SEO, contact form, domain setup, and guaranteed high performance.",
+      "features": [
+        "High-conversion custom design",
+        "Unlimited sections",
+        "Advanced SEO (Core Web Vitals optimized)",
+        "Contact form + WhatsApp integration",
+        "Google Analytics + Search Console configured",
+        "Deploy + domain setup + SSL",
+        "Delivery in up to 15 business days"
+      ],
+      "timeline": [
+        { "step": "01", "title": "Strategic briefing", "description": "We map your audience, competitors, and conversion goals before starting." },
+        { "step": "02", "title": "Copywriting + Design", "description": "We create persuasive copy and a layout optimized to maximize conversion." },
+        { "step": "03", "title": "Development", "description": "Clean, performant code with advanced SEO, integrations, and configured metrics." },
+        { "step": "04", "title": "Review", "description": "You review and we approve together. Up to 2 rounds of adjustments included." },
+        { "step": "05", "title": "Launch + Analytics", "description": "Deploy with SSL, Google Analytics, and Search Console to track your results." }
+      ],
+      "faq": [
+        { "question": "What's the difference from Portfolio?", "answer": "Landing Page Pro is focused on conversion with advanced SEO, unlimited sections, strategic copywriting, and metrics tool integration." },
+        { "question": "Can I use my current domain?", "answer": "Yes, just give us access to your domain panel and we'll handle everything." },
+        { "question": "Does it include paid traffic management?", "answer": "No. The package focuses on organic conversion. Paid traffic management is a separate service." },
+        { "question": "What is the delivery timeframe?", "answer": "On average 10 to 15 business days after briefing approval." }
+      ]
+    }
+  },
   "footer": {
     "copy": "© 2026 Duete Solutions. All rights reserved."
   }

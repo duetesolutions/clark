@@ -129,6 +129,72 @@
     "error_required": "Este campo é obrigatório",
     "error_email_invalid": "Insira um endereço de e-mail válido"
   },
+  "package": {
+    "back": "← Voltar para planos",
+    "price_from": "a partir de",
+    "includes_title": "O QUE ESTÁ INCLUSO",
+    "process_title": "COMO FUNCIONA",
+    "faq_title": "DÚVIDAS FREQUENTES",
+    "cta_title": "Pronto para começar?",
+    "cta_subtitle": "Entre em contato e receba um diagnóstico gratuito do seu projeto.",
+    "cta_button": "Falar com a equipe →",
+    "portfolio": {
+      "tag": "PORTFÓLIO",
+      "name": "Site Portfólio",
+      "price": "R$ 700",
+      "subtitle": "Uma presença digital limpa, rápida e profissional. Ideal para prestadores de serviço que querem ser encontrados e gerar credibilidade online.",
+      "features": [
+        "Design personalizado (sem templates)",
+        "Até 5 seções",
+        "SEO básico (meta tags + sitemap)",
+        "Formulário de contato integrado",
+        "Responsivo: mobile, tablet e desktop",
+        "Deploy + configuração de domínio",
+        "Entrega em até 15 dias úteis"
+      ],
+      "timeline": [
+        { "step": "01", "title": "Briefing", "description": "Você compartilha conteúdo e referências. Alinhamos a estrutura e os objetivos do site." },
+        { "step": "02", "title": "Design", "description": "Criamos o layout personalizado baseado na sua marca, com foco em clareza e conversão." },
+        { "step": "03", "title": "Desenvolvimento", "description": "Implementamos o design em código, com SEO técnico, formulário de contato e otimização de performance." },
+        { "step": "04", "title": "Revisão", "description": "Você revisa e aprovamos juntos. Até 2 rodadas de ajustes inclusas." },
+        { "step": "05", "title": "Lançamento", "description": "Deploy no seu domínio com certificado SSL. Seu site vai ao ar." }
+      ],
+      "faq": [
+        { "question": "Quais seções estão incluídas?", "answer": "O pacote inclui até 5 seções (ex: Hero, Sobre, Serviços, Depoimentos e Contato). Seções adicionais podem ser orçadas separadamente." },
+        { "question": "Preciso ter domínio e hospedagem?", "answer": "Não. Cuidamos de toda a configuração. Se você já tiver um domínio, basta transferir o acesso. Se não, orientamos na compra." },
+        { "question": "Consigo atualizar o site sozinho depois?", "answer": "Sim. Entregamos o código-fonte e podemos configurar um painel simples de edição se necessário." },
+        { "question": "Qual o prazo de entrega?", "answer": "Em média 10 a 15 dias úteis após aprovação do briefing." }
+      ]
+    },
+    "landing": {
+      "tag": "LANDING PAGE PRO",
+      "name": "Landing Page Pro",
+      "price": "R$ 1.200",
+      "subtitle": "Solução digital completa focada em conversão: SEO avançado, formulário de contato, configuração de domínio e alta performance garantida.",
+      "features": [
+        "Design personalizado de alta conversão",
+        "Seções ilimitadas",
+        "SEO avançado (Core Web Vitals otimizado)",
+        "Formulário de contato + integração WhatsApp",
+        "Google Analytics + Search Console configurados",
+        "Deploy + configuração de domínio + SSL",
+        "Entrega em até 15 dias úteis"
+      ],
+      "timeline": [
+        { "step": "01", "title": "Briefing estratégico", "description": "Mapeamos seu público, concorrentes e objetivos de conversão antes de começar." },
+        { "step": "02", "title": "Copywriting + Design", "description": "Criamos textos persuasivos e layout otimizado para maximizar conversão." },
+        { "step": "03", "title": "Desenvolvimento", "description": "Código limpo e performático com SEO avançado, integrações e métricas configuradas." },
+        { "step": "04", "title": "Revisão", "description": "Você revisa e aprovamos juntos. Até 2 rodadas de ajustes inclusas." },
+        { "step": "05", "title": "Lançamento + Analytics", "description": "Deploy com SSL, Google Analytics e Search Console para acompanhar seus resultados." }
+      ],
+      "faq": [
+        { "question": "Qual a diferença para o Portfólio?", "answer": "A Landing Page Pro é focada em conversão com SEO avançado, seções ilimitadas, copywriting estratégico e integração com ferramentas de métricas." },
+        { "question": "Posso usar meu domínio atual?", "answer": "Sim, basta nos passar o acesso ao painel do seu domínio e cuidamos de tudo." },
+        { "question": "Inclui gestão de tráfego pago?", "answer": "Não. O pacote foca em conversão orgânica. Gestão de tráfego pago é um serviço separado." },
+        { "question": "Qual o prazo de entrega?", "answer": "Em média 10 a 15 dias úteis após aprovação do briefing." }
+      ]
+    }
+  },
   "footer": {
     "copy": "© 2026 Duete Solutions. Todos os direitos reservados."
   }
