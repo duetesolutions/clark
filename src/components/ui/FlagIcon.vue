@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <span
-    class="inline-block overflow-hidden rounded-[2px]"
+    class="inline-block overflow-hidden rounded-xs"
     :style="{ width: '20px', height: '14px', lineHeight: 0 }"
     aria-hidden="true"
   >
