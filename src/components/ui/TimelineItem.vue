@@ -43,11 +43,12 @@ withDefaults(
   align-items: stretch;
   border-radius: 12px;
   padding-right: 12px;
-  transition: transform 200ms ease;
+  transition: transform 200ms cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 .timeline-item:hover {
-  transform: translateX(6px);
+  /* !important beats the inline transform left by v-motion reveal-on-scroll */
+  transform: translateY(-4px) !important;
 }
 
 .timeline-item:hover .timeline-item__badge {
