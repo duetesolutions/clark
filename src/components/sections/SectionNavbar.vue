@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
 import Button from '@/components/ui/Button.vue'
 import ThemeToggle from '@/components/ui/ThemeToggle.vue'
-import useLang from '@/composables/useLang'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher.vue'
 import useTheme from '@/composables/useTheme'
 
 withDefaults(
@@ -17,7 +17,6 @@ withDefaults(
 )
 
 const { t } = useI18n()
-const { lang, setLang } = useLang()
 const { isDark } = useTheme()
 
 const isScrolled = ref(false)
@@ -115,48 +114,9 @@ onUnmounted(() => {
         <!-- ThemeToggle (always visible) -->
         <ThemeToggle />
 
-        <!-- Language toggle (hidden on mobile) -->
-        <div class="hidden items-center gap-1 lg:flex" role="group" aria-label="Seleção de idioma">
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2"
-            :style="
-              lang === 'pt'
-                ? {
-                    backgroundColor: '#132227',
-                    color: '#f0f6fc',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-                : {
-                    backgroundColor: 'transparent',
-                    color: 'var(--color-text-muted)',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-            "
-            @click="setLang('pt')"
-          >
-            PT
-          </button>
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2"
-            :style="
-              lang === 'en'
-                ? {
-                    backgroundColor: '#132227',
-                    color: '#f0f6fc',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-                : {
-                    backgroundColor: 'transparent',
-                    color: 'var(--color-text-muted)',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-            "
-            @click="setLang('en')"
-          >
-            EN
-          </button>
+        <!-- Language switcher (hidden on mobile) -->
+        <div class="hidden lg:block">
+          <LanguageSwitcher />
         </div>
 
         <!-- Back to site link (backLink mode) -->
@@ -288,6 +248,13 @@ onUnmounted(() => {
             </a>
           </li>
         </ul>
+        <!-- Language switcher (mobile) -->
+        <div
+          class="px-6 py-3"
+          :style="{ borderBottom: '1px solid var(--color-border)' }"
+        >
+          <LanguageSwitcher />
+        </div>
         <div class="px-6 pb-5 pt-3">
           <a href="#contato" class="block" @click="closeMobileMenu">
             <Button variant="primary" size="md" class="w-full rounded-full!">
