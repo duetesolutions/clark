@@ -17,7 +17,7 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
     class="relative overflow-hidden"
     style="
       background-color: #132227;
-      min-height: 100vh;
+      min-height: 640px;
       padding-top: 80px;
     "
     aria-labelledby="hero-headline"

@@ -1,7 +1,9 @@
 import { useDark } from '@vueuse/core'
 
 const useTheme = () => {
-  const isDark = useDark()
+  const isDark = useDark({
+    initialValue: 'auto',
+  })
 
   const toggleTheme = () => {
     isDark.value = !isDark.value
