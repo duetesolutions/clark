@@ -90,8 +90,9 @@ const { t } = useI18n()
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
           <!-- Card A: Portfólio (light) -->
-          <div
-            class="service-card flex flex-col gap-5 rounded-xl p-8"
+          <RouterLink
+            to="/pacote-de-entrada"
+            class="service-card service-card--link flex flex-col gap-5 rounded-xl p-8"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -169,17 +170,15 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <RouterLink
-              to="/pacote-de-entrada"
-              class="group inline-flex items-center gap-1 text-sm hover:underline service-details-link"
-            >
+            <span class="group inline-flex items-center gap-1 text-sm service-details-link">
               {{ t('services.details_link') }}
-            </RouterLink>
-          </div>
+            </span>
+          </RouterLink>
 
           <!-- Card B: Landing Page Pro (dark / highlighted) -->
-          <div
-            class="service-card relative flex flex-col gap-5 rounded-xl p-8"
+          <RouterLink
+            to="/pacote-de-entrada"
+            class="service-card service-card--link relative flex flex-col gap-5 rounded-xl p-8"
             style="background-color: #20272f; border-radius: 12px;"
           >
             <!-- MAIS POPULAR badge -->
@@ -266,13 +265,10 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <RouterLink
-              to="/pacote-de-entrada"
-              class="inline-flex items-center gap-1 text-sm hover:underline service-details-link"
-            >
+            <span class="inline-flex items-center gap-1 text-sm service-details-link">
               {{ t('services.details_link') }}
-            </RouterLink>
-          </div>
+            </span>
+          </RouterLink>
 
         </div>
       </div>
@@ -633,6 +629,15 @@ const { t } = useI18n()
   font-size: 14px;
   color: var(--color-primary);
   text-decoration: none;
+}
+
+.service-card--link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.service-card--link:hover .service-details-link {
+  text-decoration: underline;
 }
 
 .service-card {

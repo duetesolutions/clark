@@ -36,4 +36,19 @@ describe('SectionServices', () => {
       .filter((l) => l.props('to') === '/pacote-de-entrada')
     expect(links).toHaveLength(2)
   })
+
+  it('makes the whole card clickable, not just the details text', async () => {
+    const { i18n, router } = setup()
+    await router.push('/')
+    await router.isReady()
+    const wrapper = mount(SectionServices, {
+      global: { plugins: [i18n, router] },
+    })
+    const cardLinks = wrapper
+      .findAllComponents({ name: 'RouterLink' })
+      .filter((l) => l.props('to') === '/pacote-de-entrada')
+    cardLinks.forEach((link) => {
+      expect(link.classes()).toContain('service-card')
+    })
+  })
 })
