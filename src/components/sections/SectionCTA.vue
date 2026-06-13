@@ -2,8 +2,43 @@
 import { reactive, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Button from '@/components/ui/Button.vue'
+import { useReveal } from '@/composables/useReveal'
+import useTheme from '@/composables/useTheme'
 
 const { t } = useI18n()
+const { reveal } = useReveal()
+const { isDark } = useTheme()
+
+// Theme-aware palette. Brand green is identical in both modes.
+const c = computed(() =>
+  isDark.value
+    ? {
+        bg: '#20272F',
+        text: '#ffffff',
+        textMuted: 'rgba(255,255,255,0.5)',
+        cardBg: 'rgba(255,255,255,0.05)',
+        cardBorder: 'rgba(255,255,255,0.08)',
+        inputBg: 'rgba(255,255,255,0.08)',
+        inputBorder: 'rgba(255,255,255,0.1)',
+        formLabel: 'rgba(255,255,255,0.5)',
+        placeholder: 'rgba(255,255,255,0.3)',
+        optionBg: '#20272f',
+        optionMuted: 'rgba(255,255,255,0.3)',
+      }
+    : {
+        bg: '#f4f9f6',
+        text: '#0f172a',
+        textMuted: 'rgba(15,23,42,0.6)',
+        cardBg: '#ffffff',
+        cardBorder: 'rgba(15,23,42,0.08)',
+        inputBg: '#ffffff',
+        inputBorder: 'rgba(15,23,42,0.12)',
+        formLabel: 'rgba(15,23,42,0.55)',
+        placeholder: 'rgba(15,23,42,0.4)',
+        optionBg: '#ffffff',
+        optionMuted: 'rgba(15,23,42,0.4)',
+      },
+)
 
 const formData = reactive({
   name: '',
@@ -68,13 +103,18 @@ async function handleSubmit() {
 <template>
   <section
     id="contato"
-    class="py-20"
-    style="background-color: #20272F;"
+    class="py-20 transition-colors duration-200"
+    :style="{
+      backgroundColor: c.bg,
+      '--cta-placeholder': c.placeholder,
+      '--cta-option-bg': c.optionBg,
+      '--cta-option-text': c.text,
+    }"
     aria-labelledby="contact-heading"
   >
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Section header -->
-      <div class="mb-16 flex flex-col items-center text-center">
+      <div v-motion="reveal(0)" class="mb-16 flex flex-col items-center text-center">
         <span
           class="mb-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest"
           style="background-color: rgba(70,206,122,0.12); color: var(--color-primary); font-family: var(--font-sans);"
@@ -84,15 +124,15 @@ async function handleSubmit() {
 
         <h2
           id="contact-heading"
-          class="text-[32px] font-black leading-tight tracking-[-0.03em] text-white sm:text-[48px]"
-          style="font-family: var(--font-sans);"
+          class="text-[32px] font-black leading-tight tracking-[-0.03em] sm:text-[48px]"
+          :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
         >
           {{ t('contact.title') }}
         </h2>
 
         <p
           class="mx-auto mt-4 max-w-140 text-[16px] font-normal leading-relaxed"
-          style="font-family: var(--font-sans); color: rgba(255,255,255,0.5);"
+          :style="{ fontFamily: 'var(--font-sans)', color: c.textMuted }"
         >
           {{ t('contact.subtitle') }}
         </p>
@@ -102,7 +142,7 @@ async function handleSubmit() {
       <div class="mx-auto grid max-w-270 grid-cols-1 gap-20 lg:grid-cols-2">
 
         <!-- Left column — Contact info -->
-        <div class="flex flex-col gap-8">
+        <div v-motion="reveal(1)" class="flex flex-col gap-8">
 
           <!-- Item 1: Email -->
           <div class="flex items-start gap-4">
@@ -135,8 +175,8 @@ async function handleSubmit() {
                 {{ t('contact.label_email') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal text-white"
-                style="font-family: var(--font-sans);"
+                class="mt-0.5 text-[14px] font-normal"
+                :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
                 {{ t('contact.value_email') }}
               </p>
@@ -171,8 +211,8 @@ async function handleSubmit() {
                 {{ t('contact.label_whatsapp') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal text-white"
-                style="font-family: var(--font-sans);"
+                class="mt-0.5 text-[14px] font-normal"
+                :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
                 {{ t('contact.value_whatsapp') }}
               </p>
@@ -210,8 +250,8 @@ async function handleSubmit() {
                 {{ t('contact.label_location') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal text-white"
-                style="font-family: var(--font-sans);"
+                class="mt-0.5 text-[14px] font-normal"
+                :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
                 {{ t('contact.value_location') }}
               </p>
@@ -221,8 +261,9 @@ async function handleSubmit() {
 
         <!-- Right column — Form card -->
         <div
+          v-motion="reveal(2)"
           class="rounded-2xl p-8"
-          style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);"
+          :style="{ backgroundColor: c.cardBg, border: `1px solid ${c.cardBorder}` }"
         >
           <!-- Success state -->
           <div
@@ -249,8 +290,8 @@ async function handleSubmit() {
               </svg>
             </div>
             <p
-              class="text-[16px] font-semibold text-white"
-              style="font-family: var(--font-sans);"
+              class="text-[16px] font-semibold"
+              :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
             >
               {{ t('contact.submit_success') }}
             </p>
@@ -274,7 +315,7 @@ async function handleSubmit() {
                 <label
                   for="contact-name"
                   class="text-[11px] font-semibold uppercase tracking-widest"
-                  style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
+                  :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
                 >
                   {{ t('contact.form_name') }}
                 </label>
@@ -284,14 +325,15 @@ async function handleSubmit() {
                   type="text"
                   :placeholder="t('contact.form_name_placeholder')"
                   autocomplete="name"
-                  class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
+                  class="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
                   :style="{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: errors.name ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                    backgroundColor: c.inputBg,
+                    border: errors.name ? '1px solid rgba(239,68,68,0.6)' : `1px solid ${c.inputBorder}`,
+                    color: c.text,
                     fontFamily: 'var(--font-sans)',
                   }"
                   @focus="(e) => { if (!errors.name) (e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)' }"
-                  @blur="(e) => { if (!errors.name) (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
+                  @blur="(e) => { if (!errors.name) (e.currentTarget as HTMLInputElement).style.borderColor = c.inputBorder }"
                 />
                 <p v-if="errors.name" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
                   {{ errors.name }}
@@ -303,7 +345,7 @@ async function handleSubmit() {
                 <label
                   for="contact-email"
                   class="text-[11px] font-semibold uppercase tracking-widest"
-                  style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
+                  :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
                 >
                   {{ t('contact.form_email') }}
                 </label>
@@ -313,14 +355,15 @@ async function handleSubmit() {
                   type="email"
                   :placeholder="t('contact.form_email_placeholder')"
                   autocomplete="email"
-                  class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
+                  class="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
                   :style="{
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: errors.email ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                    backgroundColor: c.inputBg,
+                    border: errors.email ? '1px solid rgba(239,68,68,0.6)' : `1px solid ${c.inputBorder}`,
+                    color: c.text,
                     fontFamily: 'var(--font-sans)',
                   }"
                   @focus="(e) => { if (!errors.email) (e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)' }"
-                  @blur="(e) => { if (!errors.email) (e.currentTarget as HTMLInputElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
+                  @blur="(e) => { if (!errors.email) (e.currentTarget as HTMLInputElement).style.borderColor = c.inputBorder }"
                 />
                 <p v-if="errors.email" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
                   {{ errors.email }}
@@ -333,33 +376,34 @@ async function handleSubmit() {
               <label
                 for="contact-need"
                 class="text-[11px] font-semibold uppercase tracking-widest"
-                style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
+                :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
               >
                 {{ t('contact.form_need') }}
               </label>
               <select
                 id="contact-need"
                 v-model="formData.need"
-                class="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
+                class="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
                 :style="{
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  border: errors.need ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: c.inputBg,
+                  border: errors.need ? '1px solid rgba(239,68,68,0.6)' : `1px solid ${c.inputBorder}`,
+                  color: c.text,
                   fontFamily: 'var(--font-sans)',
                   appearance: 'auto',
                 }"
                 @focus="(e) => { if (!errors.need) (e.currentTarget as HTMLSelectElement).style.borderColor = 'var(--color-primary)' }"
-                @blur="(e) => { if (!errors.need) (e.currentTarget as HTMLSelectElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
+                @blur="(e) => { if (!errors.need) (e.currentTarget as HTMLSelectElement).style.borderColor = c.inputBorder }"
               >
-                <option value="" style="background-color: #20272F; color: rgba(255,255,255,0.3);">
+                <option value="" :style="{ backgroundColor: c.optionBg, color: c.optionMuted }">
                   {{ t('contact.form_select') }}
                 </option>
-                <option value="portfolio" style="background-color: #20272F; color: white;">
+                <option value="portfolio" :style="{ backgroundColor: c.optionBg, color: c.text }">
                   {{ t('contact.option_portfolio') }}
                 </option>
-                <option value="landing-page-pro" style="background-color: #20272F; color: white;">
+                <option value="landing-page-pro" :style="{ backgroundColor: c.optionBg, color: c.text }">
                   {{ t('contact.option_landing') }}
                 </option>
-                <option value="mvp-startup" style="background-color: #20272F; color: white;">
+                <option value="mvp-startup" :style="{ backgroundColor: c.optionBg, color: c.text }">
                   {{ t('contact.option_mvp') }}
                 </option>
               </select>
@@ -373,7 +417,7 @@ async function handleSubmit() {
               <label
                 for="contact-message"
                 class="text-[11px] font-semibold uppercase tracking-widest"
-                style="font-family: var(--font-display); color: rgba(255,255,255,0.5);"
+                :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
               >
                 {{ t('contact.form_message') }}
               </label>
@@ -382,14 +426,15 @@ async function handleSubmit() {
                 v-model="formData.message"
                 rows="4"
                 :placeholder="t('contact.form_message_placeholder')"
-                class="w-full resize-none rounded-lg px-4 py-3 text-sm text-white outline-none transition-all duration-200"
+                class="w-full resize-none rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
                 :style="{
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  border: errors.message ? '1px solid rgba(239,68,68,0.6)' : '1px solid rgba(255,255,255,0.1)',
+                  backgroundColor: c.inputBg,
+                  border: errors.message ? '1px solid rgba(239,68,68,0.6)' : `1px solid ${c.inputBorder}`,
+                  color: c.text,
                   fontFamily: 'var(--font-sans)',
                 }"
                 @focus="(e) => { if (!errors.message) (e.currentTarget as HTMLTextAreaElement).style.borderColor = 'var(--color-primary)' }"
-                @blur="(e) => { if (!errors.message) (e.currentTarget as HTMLTextAreaElement).style.borderColor = 'rgba(255,255,255,0.1)' }"
+                @blur="(e) => { if (!errors.message) (e.currentTarget as HTMLTextAreaElement).style.borderColor = c.inputBorder }"
               />
               <p v-if="errors.message" class="text-[11px]" style="color: #fca5a5; font-family: var(--font-sans);">
                 {{ errors.message }}
@@ -418,10 +463,10 @@ async function handleSubmit() {
 <style scoped>
 input::placeholder,
 textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--cta-placeholder);
 }
 select option {
-  background-color: #20272f;
-  color: white;
+  background-color: var(--cta-option-bg);
+  color: var(--cta-option-text);
 }
 </style>
