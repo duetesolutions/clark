@@ -1,40 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Timeline from '@/components/ui/Timeline.vue'
 
 const { t } = useI18n()
 
 const steps = computed(() => [
-  {
-    number: '01',
-    title: t('process.step1'),
-    description: t('process.step1_desc'),
-  },
-  {
-    number: '02',
-    title: t('process.step2'),
-    description: t('process.step2_desc'),
-  },
-  {
-    number: '03',
-    title: t('process.step3'),
-    description: t('process.step3_desc'),
-  },
-  {
-    number: '04',
-    title: t('process.step4'),
-    description: t('process.step4_desc'),
-  },
-  {
-    number: '05',
-    title: t('process.step5'),
-    description: t('process.step5_desc'),
-  },
-  {
-    number: '06',
-    title: t('process.step6'),
-    description: t('process.step6_desc'),
-  },
+  { step: '01', title: t('process.step1'), description: t('process.step1_desc') },
+  { step: '02', title: t('process.step2'), description: t('process.step2_desc') },
+  { step: '03', title: t('process.step3'), description: t('process.step3_desc') },
+  { step: '04', title: t('process.step4'), description: t('process.step4_desc') },
+  { step: '05', title: t('process.step5'), description: t('process.step5_desc') },
+  { step: '06', title: t('process.step6'), description: t('process.step6_desc') },
 ])
 </script>
 
@@ -83,79 +60,10 @@ const steps = computed(() => [
         </p>
       </div>
 
-      <!-- Steps list -->
-      <ol class="mx-auto max-w-[680px] list-none p-0">
-        <li
-          v-for="(step, index) in steps"
-          :key="step.number"
-          class="process-step flex gap-5"
-        >
-          <!-- Left: badge + connector line -->
-          <div class="flex flex-col items-center">
-            <!-- Number badge -->
-            <div
-              class="step-badge flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-              style="background-color: #132227"
-              aria-hidden="true"
-            >
-              <span
-                class="text-sm font-bold leading-none text-white"
-                style="font-family: var(--font-sans)"
-              >
-                {{ step.number }}
-              </span>
-            </div>
-
-            <!-- Connector line (not shown after last item) -->
-            <div
-              v-if="index < steps.length - 1"
-              class="mt-1 w-px flex-1"
-              style="background-color: var(--color-border); min-height: 32px"
-              aria-hidden="true"
-            />
-          </div>
-
-          <!-- Right: text content -->
-          <div class="pb-8" :class="{ 'pb-0': index === steps.length - 1 }">
-            <h3
-              class="mb-1 text-lg font-bold leading-snug"
-              style="font-family: var(--font-sans); color: var(--color-text)"
-            >
-              {{ step.title }}
-            </h3>
-            <p
-              class="text-sm leading-relaxed"
-              style="
-                font-family: var(--font-sans);
-                color: var(--color-text-muted);
-                line-height: 22px;
-              "
-            >
-              {{ step.description }}
-            </p>
-          </div>
-        </li>
-      </ol>
+      <!-- Steps -->
+      <div class="mx-auto max-w-170">
+        <Timeline :items="steps" />
+      </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.process-step {
-  transition: transform 200ms ease;
-  border-radius: 12px;
-  padding-right: 12px;
-}
-
-.process-step:hover {
-  transform: translateX(6px);
-}
-
-.process-step:hover .step-badge {
-  background-color: var(--color-primary) !important;
-}
-
-.step-badge {
-  transition: background-color 200ms ease;
-}
-</style>

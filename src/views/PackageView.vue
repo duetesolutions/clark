@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import SectionNavbar from '@/components/sections/SectionNavbar.vue'
 import SectionFooter from '@/components/sections/SectionFooter.vue'
+import SectionNavbar from '@/components/sections/SectionNavbar.vue'
 import Button from '@/components/ui/Button.vue'
 import Card from '@/components/ui/Card.vue'
 import Timeline from '@/components/ui/Timeline.vue'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const { t, tm } = useI18n()
 
@@ -19,7 +19,12 @@ const maintenanceItems = computed(
 )
 
 const timeline = computed(
-  (): Array<{ step: string; label: string; title: string; description: string }> =>
+  (): Array<{
+    step: string
+    label: string
+    title: string
+    description: string
+  }> =>
     tm('package.timeline') as Array<{
       step: string
       label: string
@@ -48,16 +53,26 @@ const terms = computed(
 
         <div class="package-prices">
           <Card variant="default" class="package-price">
-            <span class="package-price__label">{{ t('package.price_setup_label') }}</span>
-            <span class="package-price__value">{{ t('package.price_setup_value') }}</span>
-            <span class="package-price__note">{{ t('package.price_setup_note') }}</span>
+            <span class="package-price__label">{{
+              t('package.price_setup_label')
+            }}</span>
+            <span class="package-price__value">{{
+              t('package.price_setup_value')
+            }}</span>
+            <span class="package-price__note">{{
+              t('package.price_setup_note')
+            }}</span>
           </Card>
           <Card variant="default" class="package-price">
-            <span class="package-price__label">{{ t('package.price_maintenance_label') }}</span>
+            <span class="package-price__label">{{
+              t('package.price_maintenance_label')
+            }}</span>
             <span class="package-price__value package-price__value--muted">
               {{ t('package.price_maintenance_value') }}
             </span>
-            <span class="package-price__note">{{ t('package.price_maintenance_note') }}</span>
+            <span class="package-price__note">{{
+              t('package.price_maintenance_note')
+            }}</span>
           </Card>
         </div>
       </div>
@@ -66,7 +81,9 @@ const terms = computed(
     <section class="package-section">
       <div class="package-container">
         <span class="package-eyebrow">{{ t('package.includes_tag') }}</span>
-        <h2 class="package-section__title">{{ t('package.includes_title') }}</h2>
+        <h2 class="package-section__title">
+          {{ t('package.includes_title') }}
+        </h2>
         <div class="package-table">
           <div class="package-table__head">
             <span>{{ t('package.col_item') }}</span>
@@ -80,10 +97,18 @@ const terms = computed(
             <span class="package-table__item">{{ item.label }}</span>
             <span
               class="package-status"
-              :class="item.status === 'included' ? 'package-status--on' : 'package-status--off'"
+              :class="
+                item.status === 'included'
+                  ? 'package-status--on'
+                  : 'package-status--off'
+              "
             >
               <span class="package-status__dot" aria-hidden="true" />
-              {{ item.status === 'included' ? t('package.status_included') : t('package.status_tbd') }}
+              {{
+                item.status === 'included'
+                  ? t('package.status_included')
+                  : t('package.status_tbd')
+              }}
             </span>
           </div>
         </div>
@@ -93,8 +118,12 @@ const terms = computed(
     <section class="package-section">
       <div class="package-container">
         <span class="package-eyebrow">{{ t('package.maintenance_tag') }}</span>
-        <h2 class="package-section__title">{{ t('package.maintenance_title') }}</h2>
-        <p class="package-section__subtitle">{{ t('package.maintenance_subtitle') }}</p>
+        <h2 class="package-section__title">
+          {{ t('package.maintenance_title') }}
+        </h2>
+        <p class="package-section__subtitle">
+          {{ t('package.maintenance_subtitle') }}
+        </p>
         <ul class="package-list">
           <li
             v-for="(line, index) in maintenanceItems"
@@ -127,7 +156,9 @@ const terms = computed(
             class="package-warning__icon"
             aria-hidden="true"
           >
-            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+            <path
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
+            />
             <line x1="12" y1="9" x2="12" y2="13" />
             <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
@@ -162,7 +193,9 @@ const terms = computed(
           <h2 class="package-cta__title">{{ t('package.cta_title') }}</h2>
           <p class="package-cta__subtitle">{{ t('package.cta_subtitle') }}</p>
           <RouterLink to="/#contato">
-            <Button variant="primary" size="lg">{{ t('package.cta_button') }}</Button>
+            <Button variant="primary" size="lg">{{
+              t('package.cta_button')
+            }}</Button>
           </RouterLink>
         </Card>
       </div>

@@ -16,16 +16,19 @@ withDefaults(
 
 <template>
   <div class="timeline-item">
-    <!-- Left column: step indicator + connector line -->
+    <!-- Left column: step badge + connector line -->
     <div class="timeline-item__left">
-      <div class="timeline-item__circle">
+      <div class="timeline-item__badge" aria-hidden="true">
         <span class="timeline-item__step">{{ step }}</span>
       </div>
-      <div v-if="!isLast" class="timeline-item__line" />
+      <div v-if="!isLast" class="timeline-item__line" aria-hidden="true" />
     </div>
 
     <!-- Right column: title + description -->
-    <div class="timeline-item__content">
+    <div
+      class="timeline-item__content"
+      :class="{ 'timeline-item__content--last': isLast }"
+    >
       <span v-if="label" class="timeline-item__label">{{ label }}</span>
       <h3 class="timeline-item__title">{{ title }}</h3>
       <p class="timeline-item__description">{{ description }}</p>
@@ -36,8 +39,19 @@ withDefaults(
 <style scoped>
 .timeline-item {
   display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+  gap: 1.25rem;
+  align-items: stretch;
+  border-radius: 12px;
+  padding-right: 12px;
+  transition: transform 200ms ease;
+}
+
+.timeline-item:hover {
+  transform: translateX(6px);
+}
+
+.timeline-item:hover .timeline-item__badge {
+  background-color: var(--color-primary);
 }
 
 /* ---- left column ---- */
@@ -48,31 +62,31 @@ withDefaults(
   flex-shrink: 0;
 }
 
-.timeline-item__circle {
+.timeline-item__badge {
   width: 2.5rem; /* 40px */
   height: 2.5rem;
   border-radius: 9999px;
-  border: 2px solid var(--color-primary);
-  background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  background-color: #132227;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: background-color 200ms ease;
 }
 
 .timeline-item__step {
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: #fff;
   line-height: 1;
 }
 
 .timeline-item__line {
-  width: 2px;
+  width: 1px;
   flex: 1;
-  min-height: 1.5rem;
-  background-color: var(--color-primary);
-  opacity: 0.35;
+  min-height: 32px;
+  background-color: var(--color-border);
   margin-top: 0.25rem;
 }
 
@@ -81,6 +95,10 @@ withDefaults(
   padding-bottom: 2rem;
   flex: 1;
   min-width: 0;
+}
+
+.timeline-item__content--last {
+  padding-bottom: 0;
 }
 
 .timeline-item__label {
@@ -95,17 +113,19 @@ withDefaults(
 }
 
 .timeline-item__title {
-  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 0.375rem;
+  margin: 0 0 0.25rem;
   line-height: 1.4;
 }
 
 .timeline-item__description {
-  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: 22px;
   margin: 0;
 }
 </style>
