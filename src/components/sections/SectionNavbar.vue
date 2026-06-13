@@ -307,10 +307,15 @@ onUnmounted(() => {
   font-size: 14px;
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: color 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    color 200ms ease,
+    transform 200ms cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 .nav-back-link:hover {
   color: var(--color-primary);
+  transform: translateX(-3px);
 }
 </style>

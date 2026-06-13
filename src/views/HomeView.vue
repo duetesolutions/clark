@@ -10,8 +10,6 @@ import SectionServices from '@/components/sections/SectionServices.vue'
 import SectionTestimonials from '@/components/sections/SectionTestimonials.vue'
 import { useReveal } from '@/composables/useReveal'
 
-// Single-block sections fade up as a whole; list-heavy sections stagger
-// their own items internally (see each section component).
 const { reveal } = useReveal()
 </script>
 
