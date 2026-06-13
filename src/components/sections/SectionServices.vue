@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useReveal } from '@/composables/useReveal'
 const { t } = useI18n()
+const { reveal } = useReveal()
 </script>
 
 <template>
@@ -91,6 +93,7 @@ const { t } = useI18n()
 
           <!-- Card A: Portfólio (light) -->
           <RouterLink
+            v-motion="reveal(0)"
             to="/pacote-de-entrada"
             class="service-card service-card--link flex flex-col gap-5 rounded-xl p-8"
             :style="{
@@ -177,6 +180,7 @@ const { t } = useI18n()
 
           <!-- Card B: Landing Page Pro (dark / highlighted) -->
           <RouterLink
+            v-motion="reveal(1)"
             to="/pacote-de-entrada"
             class="service-card service-card--link relative flex flex-col gap-5 rounded-xl p-8"
             style="background-color: #20272f; border-radius: 12px;"
@@ -392,6 +396,7 @@ const { t } = useI18n()
 
           <!-- Card 1: Produção de Vídeo -->
           <div
+            v-motion="reveal(0)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
@@ -471,6 +476,7 @@ const { t } = useI18n()
 
           <!-- Card 2: Posts para Instagram -->
           <div
+            v-motion="reveal(1)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
@@ -545,6 +551,7 @@ const { t } = useI18n()
 
           <!-- Card 3: Marketing Digital -->
           <div
+            v-motion="reveal(2)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
