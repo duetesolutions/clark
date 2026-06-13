@@ -2,66 +2,99 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Button from '@/components/ui/Button.vue'
+import useTheme from '@/composables/useTheme'
 
 const { t } = useI18n()
+const { isDark } = useTheme()
 
 // 13 columns × 8 rows dot grid
 const DOT_COLS = 13
 const DOT_ROWS = 8
 
 const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')])
+
+// Theme-aware palette. Brand green is identical in both modes.
+const c = computed(() =>
+  isDark.value
+    ? {
+        bg: '#132227',
+        text: '#ffffff',
+        textMuted: 'rgba(255,255,255,0.5)',
+        cta2: 'rgba(255,255,255,0.7)',
+        cta2Hover: '#ffffff',
+        tagBg: 'rgba(255,255,255,0.06)',
+        tagBorder: 'rgba(255,255,255,0.12)',
+        tagText: 'rgba(255,255,255,0.6)',
+        circleGrad: 'rgba(232,250,240,1)',
+        circleOpacity: '0.08',
+        dotsOpacity: '0.2',
+      }
+    : {
+        bg: '#f4f9f6',
+        text: '#0f172a',
+        textMuted: 'rgba(15,23,42,0.6)',
+        cta2: 'rgba(15,23,42,0.65)',
+        cta2Hover: '#0f172a',
+        tagBg: 'rgba(15,23,42,0.04)',
+        tagBorder: 'rgba(15,23,42,0.08)',
+        tagText: 'rgba(15,23,42,0.6)',
+        circleGrad: 'rgba(58,184,107,1)',
+        circleOpacity: '0.12',
+        dotsOpacity: '0.3',
+      },
+)
 </script>
 
 <template>
   <section
-    class="relative overflow-hidden"
-    style="
-      background-color: #132227;
-      min-height: 100vh;
-      padding-top: 80px;
-    "
+    class="relative overflow-hidden transition-colors duration-200"
+    :style="{
+      backgroundColor: c.bg,
+      minHeight: '640px',
+      paddingTop: '80px',
+    }"
     aria-labelledby="hero-headline"
   >
     <!-- Decorative circle 1: large, top-right -->
     <div
       class="pointer-events-none absolute rounded-full"
-      style="
-        width: 700px;
-        height: 700px;
-        top: -250px;
-        right: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(232,250,240,1) 0%, rgba(0,0,0,0) 70%);
-        opacity: 0.08;
-        border-radius: 50%;
-      "
+      :style="{
+        width: '700px',
+        height: '700px',
+        top: '-250px',
+        right: '0',
+        background: `radial-gradient(circle at 50% 50%, ${c.circleGrad} 0%, rgba(0,0,0,0) 70%)`,
+        opacity: c.circleOpacity,
+        borderRadius: '50%',
+      }"
       aria-hidden="true"
     />
 
     <!-- Decorative circle 2: small, bottom-left -->
     <div
       class="pointer-events-none absolute rounded-full"
-      style="
-        width: 350px;
-        height: 350px;
-        bottom: -100px;
-        left: -100px;
-        background: radial-gradient(circle at 50% 50%, rgba(232,250,240,1) 0%, rgba(0,0,0,0) 70%);
-        opacity: 0.08;
-        border-radius: 50%;
-      "
+      :style="{
+        width: '350px',
+        height: '350px',
+        bottom: '-100px',
+        left: '-100px',
+        background: `radial-gradient(circle at 50% 50%, ${c.circleGrad} 0%, rgba(0,0,0,0) 70%)`,
+        opacity: c.circleOpacity,
+        borderRadius: '50%',
+      }"
       aria-hidden="true"
     />
 
     <!-- Dots grid: 13×8, top-right -->
     <div
       class="pointer-events-none absolute"
-      style="
-        top: 100px;
-        right: 48px;
-        width: 242px;
-        height: 94px;
-        opacity: 0.2;
-      "
+      :style="{
+        top: '100px',
+        right: '48px',
+        width: '242px',
+        height: '94px',
+        opacity: c.dotsOpacity,
+      }"
       aria-hidden="true"
     >
       <div
@@ -121,16 +154,16 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
         <h1
           id="hero-headline"
           class="mt-6"
-          style="
-            font-family: var(--font-sans);
-            font-weight: 900;
-            font-size: clamp(48px, 6vw, 80px);
-            line-height: clamp(50.4px, 6.3vw, 84px);
-            letter-spacing: -0.03em;
-            color: #ffffff;
-            margin: 0;
-            margin-top: 24px;
-          "
+          :style="{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: '900',
+            fontSize: 'clamp(48px, 6vw, 80px)',
+            lineHeight: 'clamp(50.4px, 6.3vw, 84px)',
+            letterSpacing: '-0.03em',
+            color: c.text,
+            margin: '0',
+            marginTop: '24px',
+          }"
         >
           {{ t('hero.title') }}
           <span style="color:#3AB86B;"> {{ t('hero.title_accent') }}</span>
@@ -139,15 +172,15 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
         <!-- Subtitle -->
         <p
           class="mt-4"
-          style="
-            font-family: var(--font-sans);
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 27.2px;
-            color: rgba(255,255,255,0.5);
-            max-width: 560px;
-            margin-top: 16px;
-          "
+          :style="{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: '400',
+            fontSize: '16px',
+            lineHeight: '27.2px',
+            color: c.textMuted,
+            maxWidth: '560px',
+            marginTop: '16px',
+          }"
         >
           {{ t('hero.subtitle') }}
         </p>
@@ -162,17 +195,17 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
           <a
             href="#servicos"
             class="inline-flex items-center justify-center transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2"
-            style="
-              font-family: var(--font-sans);
-              font-weight: 500;
-              font-size: 16px;
-              color: rgba(255,255,255,0.7);
-              text-decoration: none;
-              gap: 6px;
-              --tw-ring-color: var(--color-primary);
-            "
-            @mouseover="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#ffffff')"
-            @mouseleave="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.7)')"
+            :style="{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: '500',
+              fontSize: '16px',
+              color: c.cta2,
+              textDecoration: 'none',
+              gap: '6px',
+              '--tw-ring-color': 'var(--color-primary)',
+            }"
+            @mouseover="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = c.cta2Hover)"
+            @mouseleave="(e) => ((e.currentTarget as HTMLAnchorElement).style.color = c.cta2)"
           >
             {{ t('hero.cta2') }}
           </a>
@@ -184,11 +217,11 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
             v-for="tag in heroTags"
             :key="tag"
             class="inline-flex items-center gap-1.5 rounded-full"
-            style="
-              background: rgba(255,255,255,0.06);
-              border: 1px solid rgba(255,255,255,0.12);
-              padding: 5px 12px 5px 10px;
-            "
+            :style="{
+              background: c.tagBg,
+              border: `1px solid ${c.tagBorder}`,
+              padding: '5px 12px 5px 10px',
+            }"
           >
             <span
               class="block rounded-full shrink-0"
@@ -196,11 +229,11 @@ const heroTags = computed(() => [t('hero.tag1'), t('hero.tag2'), t('hero.tag3')]
               aria-hidden="true"
             />
             <span
-              style="
-                font-family: var(--font-sans);
-                font-size: 13px;
-                color: rgba(255,255,255,0.6);
-              "
+              :style="{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '13px',
+                color: c.tagText,
+              }"
             >{{ tag }}</span>
           </span>
         </div>

@@ -2,9 +2,11 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useTheme from '@/composables/useTheme'
+import { useReveal } from '@/composables/useReveal'
 
 const { t } = useI18n()
 const { isDark } = useTheme()
+const { reveal } = useReveal()
 
 const aboutLogoSrc = computed(() => {
   const theme = isDark.value ? 'dark' : 'light'
@@ -54,8 +56,9 @@ const bullets = computed(() => [
           <!-- Stat cards row -->
           <div class="flex gap-4">
             <div
-              v-for="stat in stats"
+              v-for="(stat, index) in stats"
               :key="stat.value"
+              v-motion="reveal(index)"
               class="flex flex-1 flex-col gap-0.5 rounded-lg border px-4 py-3"
               style="
                 background-color: var(--color-surface);
@@ -121,8 +124,9 @@ const bullets = computed(() => [
           <!-- Bullet points -->
           <ul class="flex list-none flex-col gap-4 p-0">
             <li
-              v-for="bullet in bullets"
+              v-for="(bullet, index) in bullets"
               :key="bullet.bold"
+              v-motion="reveal(index)"
               class="flex items-start gap-3"
             >
               <!-- Green dot -->

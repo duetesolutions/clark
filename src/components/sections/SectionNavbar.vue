@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { RouterLink } from 'vue-router'
 import Button from '@/components/ui/Button.vue'
 import ThemeToggle from '@/components/ui/ThemeToggle.vue'
-import useLang from '@/composables/useLang'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher.vue'
 import useTheme from '@/composables/useTheme'
 
+withDefaults(
+  defineProps<{
+    backLink?: boolean
+  }>(),
+  {
+    backLink: false,
+  },
+)
+
 const { t } = useI18n()
-const { lang, setLang } = useLang()
 const { isDark } = useTheme()
 
 const isScrolled = ref(false)
@@ -79,7 +88,7 @@ onUnmounted(() => {
       </a>
 
       <!-- Desktop nav links -->
-      <ul class="hidden items-center lg:flex" style="gap:32px;" role="list">
+      <ul v-if="!backLink" class="hidden items-center lg:flex" style="gap:32px;" role="list">
         <li v-for="link in navLinks" :key="link.href">
           <a
             :href="link.href"
@@ -105,52 +114,37 @@ onUnmounted(() => {
         <!-- ThemeToggle (always visible) -->
         <ThemeToggle />
 
-        <!-- Language toggle (hidden on mobile) -->
-        <div class="hidden items-center gap-1 lg:flex" role="group" aria-label="Seleção de idioma">
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2"
-            :style="
-              lang === 'pt'
-                ? {
-                    backgroundColor: '#132227',
-                    color: '#f0f6fc',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-                : {
-                    backgroundColor: 'transparent',
-                    color: 'var(--color-text-muted)',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-            "
-            @click="setLang('pt')"
-          >
-            PT
-          </button>
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2"
-            :style="
-              lang === 'en'
-                ? {
-                    backgroundColor: '#132227',
-                    color: '#f0f6fc',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-                : {
-                    backgroundColor: 'transparent',
-                    color: 'var(--color-text-muted)',
-                    '--tw-ring-color': 'var(--color-primary)',
-                  }
-            "
-            @click="setLang('en')"
-          >
-            EN
-          </button>
+        <!-- Language switcher (hidden on mobile) -->
+        <div class="hidden lg:block">
+          <LanguageSwitcher />
         </div>
 
+        <!-- Back to site link (backLink mode) -->
+        <RouterLink
+          v-if="backLink"
+          to="/"
+          class="nav-back-link inline-flex items-center gap-1.5"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          {{ t('package.back_to_site') }}
+        </RouterLink>
+
         <!-- "Fale conosco" CTA (desktop) -->
-        <div class="hidden lg:block">
+        <div v-if="!backLink" class="hidden lg:block">
           <a href="#contato">
             <Button
               variant="primary"
@@ -164,6 +158,7 @@ onUnmounted(() => {
 
         <!-- Hamburger (mobile only) -->
         <button
+          v-if="!backLink"
           type="button"
           class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:hidden"
           :style="{
@@ -224,7 +219,7 @@ onUnmounted(() => {
       leave-to-class="opacity-0 -translate-y-2"
     >
       <div
-        v-if="isMobileMenuOpen"
+        v-if="isMobileMenuOpen && !backLink"
         id="mobile-menu"
         class="lg:hidden"
         :style="{
@@ -253,6 +248,13 @@ onUnmounted(() => {
             </a>
           </li>
         </ul>
+        <!-- Language switcher (mobile) -->
+        <div
+          class="px-6 py-3"
+          :style="{ borderBottom: '1px solid var(--color-border)' }"
+        >
+          <LanguageSwitcher />
+        </div>
         <div class="px-6 pb-5 pt-3">
           <a href="#contato" class="block" @click="closeMobileMenu">
             <Button variant="primary" size="md" class="w-full rounded-full!">
@@ -264,3 +266,23 @@ onUnmounted(() => {
     </Transition>
   </header>
 </template>
+
+<style scoped>
+.nav-back-link {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    color 200ms ease,
+    transform 200ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.nav-back-link:hover {
+  color: var(--color-primary);
+  transform: translateX(-3px);
+}
+</style>

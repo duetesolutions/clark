@@ -12,11 +12,12 @@ dist
 dist-ssr
 *.local
 
-# vue-tsc build mode artifacts
-src/**/*.vue.js
+# vue-tsc build mode artifacts (no hand-written JS lives in src/ or tests/)
+src/**/*.js
 src/**/*.vue.d.ts
-src/**/*.ts.js
-src/**/*.ts.d.ts
+tests/**/*.js
+tests/**/*.vue.d.ts
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*

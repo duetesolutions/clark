@@ -129,6 +129,70 @@
     "error_required": "Este campo é obrigatório",
     "error_email_invalid": "Insira um endereço de e-mail válido"
   },
+  "package": {
+    "back_to_site": "Voltar ao site",
+    "tag": "PACOTE DE ENTRADA",
+    "title": "Presença digital profissional para o seu negócio",
+    "subtitle": "Tudo que você precisa para estar online de forma rápida, segura e eficiente — com um processo claro do início ao fim.",
+    "price_setup_label": "SETUP ÚNICO",
+    "price_setup_value": "R$ 700 – R$ 2.500",
+    "price_setup_note": "Conforme complexidade do projeto",
+    "price_maintenance_label": "MANUTENÇÃO MENSAL (OPCIONAL)",
+    "price_maintenance_value": "R$ 120/mês",
+    "price_maintenance_note": "Suporte e atualizações contínuas",
+    "includes_tag": "O QUE ESTÁ INCLUSO",
+    "includes_title": "Itens de entrega",
+    "col_item": "ITEM",
+    "col_status": "STATUS",
+    "status_included": "Incluso",
+    "status_tbd": "A combinar",
+    "items": [
+      { "label": "Landing page responsiva (celular + computador)", "status": "included" },
+      { "label": "SEO técnico (meta tags, Open Graph, sitemap, robots.txt)", "status": "included" },
+      { "label": "Performance 90+ no Google Lighthouse", "status": "included" },
+      { "label": "Formulário de contato funcional", "status": "included" },
+      { "label": "Deploy e configuração de domínio", "status": "included" },
+      { "label": "Domínio .com.br", "status": "included" },
+      { "label": "Certificado SSL (HTTPS)", "status": "included" },
+      { "label": "Até 2 rodadas de revisão", "status": "included" },
+      { "label": "Fotos profissionais / criação de logos / produção de conteúdo", "status": "tbd" }
+    ],
+    "maintenance_tag": "PLANO MENSAL OPCIONAL",
+    "maintenance_title": "Manutenção por R$ 120/mês",
+    "maintenance_subtitle": "A manutenção garante que o site continue atualizado e convertendo visitantes em clientes.",
+    "maintenance_items": [
+      "Hospedagem na Vercel (infraestrutura de nível enterprise)",
+      "Renovação do domínio a partir do 2º ano",
+      "Atualizações de segurança e dependências técnicas",
+      "Pequenas alterações de texto e imagens (até 1h/mês)",
+      "Suporte via WhatsApp em horário comercial"
+    ],
+    "process_tag": "PRAZO ESTIMADO",
+    "process_title": "Processo de entrega",
+    "timeline": [
+      { "step": "01", "label": "DIA 1", "title": "Brainstorm", "description": "Alinhamento de ideias e apresentação da proposta." },
+      { "step": "02", "label": "DIAS 2 – 5", "title": "Briefing", "description": "Aprovação de estrutura, textos e referências visuais." },
+      { "step": "03", "label": "DIAS 6 – 11", "title": "Desenvolvimento", "description": "Design, código, SEO e integrações." },
+      { "step": "04", "label": "DIA 12", "title": "Apresentação beta", "description": "Versão beta apresentada para revisão do cliente." },
+      { "step": "05", "label": "DIAS 13 – 14", "title": "Ajustes", "description": "Refinamentos conforme feedback. Até 2 rodadas inclusas." },
+      { "step": "06", "label": "DIAS 15 – 17", "title": "Entrega oficial", "description": "Deploy final, configuração de domínio e entrega ao cliente." }
+    ],
+    "warning_label": "Atenção:",
+    "warning_text": "O prazo de 17 dias úteis inicia após a aprovação dos textos e materiais pelo cliente.",
+    "terms_tag": "TERMOS E CONDIÇÕES",
+    "terms_title": "O que você precisa saber",
+    "terms": [
+      { "term": "PAGAMENTO", "desc": "25% na assinatura do contrato, 75% na entrega." },
+      { "term": "MANUTENÇÃO", "desc": "Opcional, cobrada a partir do mês seguinte à entrega." },
+      { "term": "CONTEÚDO", "desc": "O cliente fornece textos, imagens e logotipo no prazo acordado." },
+      { "term": "REVISÕES EXTRAS", "desc": "Além das 2 rodadas inclusas, R$ 80/hora." },
+      { "term": "HOSPEDAGEM", "desc": "Domínio e repositório por sua conta, ou gerenciado pela Duete Solutions." },
+      { "term": "CANCELAMENTO", "desc": "Aviso prévio de 30 dias para encerramento do plano mensal." }
+    ],
+    "cta_title": "Vamos começar?",
+    "cta_subtitle": "Entre em contato e vamos construir uma nova presença digital para o seu negócio.",
+    "cta_button": "Fale conosco →"
+  },
   "footer": {
     "copy": "© 2026 Duete Solutions. Todos os direitos reservados."
   }

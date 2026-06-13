@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useReveal } from '@/composables/useReveal'
 const { t } = useI18n()
+const { reveal } = useReveal()
 </script>
 
 <template>
@@ -90,8 +92,10 @@ const { t } = useI18n()
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
           <!-- Card A: Portfólio (light) -->
-          <div
-            class="service-card flex flex-col gap-5 rounded-xl p-8"
+          <RouterLink
+            v-motion="reveal(0)"
+            to="/pacote-de-entrada"
+            class="service-card service-card--link flex flex-col gap-5 rounded-xl p-8"
             :style="{
               backgroundColor: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
@@ -169,24 +173,16 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <!-- Link -->
-            <a
-              href="#"
-              class="group inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '14px',
-                color: 'var(--color-primary)',
-                textDecoration: 'none',
-              }"
-            >
+            <span class="group inline-flex items-center gap-1 text-sm service-details-link">
               {{ t('services.details_link') }}
-            </a>
-          </div>
+            </span>
+          </RouterLink>
 
           <!-- Card B: Landing Page Pro (dark / highlighted) -->
-          <div
-            class="service-card relative flex flex-col gap-5 rounded-xl p-8"
+          <RouterLink
+            v-motion="reveal(1)"
+            to="/pacote-de-entrada"
+            class="service-card service-card--link relative flex flex-col gap-5 rounded-xl p-8"
             style="background-color: #20272f; border-radius: 12px;"
           >
             <!-- MAIS POPULAR badge -->
@@ -273,20 +269,10 @@ const { t } = useI18n()
               </span>
             </div>
 
-            <!-- Link -->
-            <a
-              href="#"
-              class="inline-flex items-center gap-1 text-sm hover:underline"
-              :style="{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '14px',
-                color: 'var(--color-primary)',
-                textDecoration: 'none',
-              }"
-            >
+            <span class="inline-flex items-center gap-1 text-sm service-details-link">
               {{ t('services.details_link') }}
-            </a>
-          </div>
+            </span>
+          </RouterLink>
 
         </div>
       </div>
@@ -410,6 +396,7 @@ const { t } = useI18n()
 
           <!-- Card 1: Produção de Vídeo -->
           <div
+            v-motion="reveal(0)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
@@ -489,6 +476,7 @@ const { t } = useI18n()
 
           <!-- Card 2: Posts para Instagram -->
           <div
+            v-motion="reveal(1)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
@@ -563,6 +551,7 @@ const { t } = useI18n()
 
           <!-- Card 3: Marketing Digital -->
           <div
+            v-motion="reveal(2)"
             class="service-card flex flex-col gap-4 rounded-xl p-6"
             :style="{
               backgroundColor: 'var(--color-surface)',
@@ -642,6 +631,22 @@ const { t } = useI18n()
 </template>
 
 <style scoped>
+.service-details-link {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.service-card--link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.service-card--link:hover .service-details-link {
+  text-decoration: underline;
+}
+
 .service-card {
   position: relative;
   overflow: hidden;
@@ -664,8 +669,9 @@ const { t } = useI18n()
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  /* !important beats the inline transform left by v-motion reveal-on-scroll */
+  transform: translateY(-6px) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.16);
 }
 
 .service-card:hover::before {

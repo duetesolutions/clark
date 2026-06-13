@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import AccordionItem from './AccordionItem.vue'
+import { useReveal } from '@/composables/useReveal'
+
+const { reveal } = useReveal()
 
 const props = withDefaults(
   defineProps<{
@@ -40,6 +43,7 @@ function toggle(index: number) {
     <AccordionItem
       v-for="(item, index) in props.items"
       :key="index"
+      v-motion="reveal(index)"
       :question="item.question"
       :answer="item.answer"
       :is-open="openItems.has(index)"
