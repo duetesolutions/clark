@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import useLang from '@/composables/useLang'
 import FlagIcon from '@/components/ui/FlagIcon.vue'
+import useLang from '@/composables/useLang'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const { lang, setLang } = useLang()
 
@@ -17,7 +17,7 @@ const labels = computed<Record<LangCode, string>>(() =>
 )
 
 const options = computed(() =>
-  (['pt', 'en'] as LangCode[]).map((code) => ({
+  (['pt', 'en'] as LangCode[]).map(code => ({
     code,
     label: labels.value[code],
   })),
@@ -54,7 +54,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="root" class="relative">
+  <div ref="root" class="relative inline-block">
     <!-- Trigger button -->
     <button
       type="button"
@@ -70,8 +70,8 @@ onUnmounted(() => {
       aria-label="Selecionar idioma"
       @click="toggle"
     >
-      <FlagIcon :code="(lang as LangCode)" />
-      <span>{{ labels[(lang as LangCode)] }}</span>
+      <FlagIcon :code="lang as LangCode" />
+      <span>{{ labels[lang as LangCode] }}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="14"
@@ -101,7 +101,7 @@ onUnmounted(() => {
     >
       <ul
         v-if="isOpen"
-        class="absolute right-0 z-50 mt-2 min-w-37.5 overflow-hidden rounded-lg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
+        class="absolute left-1/2 -translate-x-1/2 z-50 mt-2 min-w-37.5 overflow-hidden rounded-lg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
         :style="{
           backgroundColor: 'var(--color-bg)',
           border: '1px solid var(--color-border)',
@@ -113,14 +113,25 @@ onUnmounted(() => {
             type="button"
             class="flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm font-medium transition-colors duration-150 focus-visible:outline-none"
             :style="{
-              color: opt.code === lang ? 'var(--color-primary)' : 'var(--color-text)',
+              color:
+                opt.code === lang
+                  ? 'var(--color-primary)'
+                  : 'var(--color-text)',
               backgroundColor: 'transparent',
             }"
             :aria-selected="opt.code === lang"
             role="option"
             @click="select(opt.code)"
-            @mouseover="(e) => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = 'var(--color-border)')"
-            @mouseleave="(e) => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent')"
+            @mouseover="
+              e =>
+                ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  'var(--color-border)')
+            "
+            @mouseleave="
+              e =>
+                ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  'transparent')
+            "
           >
             <FlagIcon :code="opt.code" />
             {{ opt.label }}
