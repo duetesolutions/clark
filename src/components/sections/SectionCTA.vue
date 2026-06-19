@@ -75,6 +75,12 @@ function validate(): boolean {
   return !errors.name && !errors.email && !errors.need && !errors.message
 }
 
+function blockNonNumeric(e: KeyboardEvent) {
+  // allow control keys (backspace, delete, tab, arrows, etc.)
+  if (e.key.length > 1 || e.ctrlKey || e.metaKey) return
+  if (!/[0-9]/.test(e.key)) e.preventDefault()
+}
+
 function maskPhone(e: Event) {
   const raw = (e.target as HTMLInputElement).value.replace(/\D/g, '')
 
@@ -426,6 +432,7 @@ async function handleSubmit() {
                 maxlength="17"
                 :placeholder="t('contact.form_phone_placeholder')"
                 autocomplete="tel"
+                @keydown="blockNonNumeric"
                 @input="maskPhone"
                 class="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
                 :style="{
