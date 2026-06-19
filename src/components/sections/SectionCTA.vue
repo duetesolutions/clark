@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button.vue'
 import { useReveal } from '@/composables/useReveal'
 import useTheme from '@/composables/useTheme'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { reveal } = useReveal()
 const { isDark } = useTheme()
 
@@ -43,6 +43,7 @@ const c = computed(() =>
 const formData = reactive({
   name: '',
   email: '',
+  phone: '',
   need: '',
   message: '',
 })
@@ -74,6 +75,31 @@ function validate(): boolean {
   return !errors.name && !errors.email && !errors.need && !errors.message
 }
 
+function maskPhone(e: Event) {
+  const raw = (e.target as HTMLInputElement).value.replace(/\D/g, '')
+
+  if (locale.value === 'en') {
+    // US: +1 (000) 000-0000
+    const d = raw.replace(/^1/, '').slice(0, 10)
+    let out = d
+    if (d.length > 0) out = `+1 (${d.slice(0, 3)}`
+    if (d.length >= 4) out = `+1 (${d.slice(0, 3)}) ${d.slice(3, 6)}`
+    if (d.length >= 7) out = `+1 (${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`
+    formData.phone = out
+    return
+  }
+
+  // BR: (00) 00000-0000
+  const digits = raw.slice(0, 11)
+  let out = digits
+  if (digits.length > 2) out = `(${digits.slice(0, 2)}) ${digits.slice(2)}`
+  if (digits.length > 7) {
+    const split = digits.length > 10 ? 7 : 6
+    out = `(${digits.slice(0, 2)}) ${digits.slice(2, split)}-${digits.slice(split)}`
+  }
+  formData.phone = out
+}
+
 const isSubmitting = computed(() => status.value === 'submitting')
 
 async function handleSubmit() {
@@ -92,6 +118,7 @@ async function handleSubmit() {
     status.value = 'success'
     formData.name = ''
     formData.email = ''
+    formData.phone = ''
     formData.need = ''
     formData.message = ''
   } catch {
@@ -145,7 +172,7 @@ async function handleSubmit() {
         <div v-motion="reveal(1)" class="flex flex-col gap-8">
 
           <!-- Item 1: Email -->
-          <div class="flex items-start gap-4">
+          <a href="mailto:gabrielmonteiroduete@gmail.com" class="group flex items-start gap-4">
             <div
               class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
               style="background-color: rgba(70,206,122,0.15);"
@@ -175,16 +202,21 @@ async function handleSubmit() {
                 {{ t('contact.label_email') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal"
+                class="mt-0.5 text-[14px] font-normal transition-colors group-hover:text-primary"
                 :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
                 {{ t('contact.value_email') }}
               </p>
             </div>
-          </div>
+          </a>
 
           <!-- Item 2: WhatsApp -->
-          <div class="flex items-start gap-4">
+          <a
+            href="https://wa.me/5588996865471"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-start gap-4"
+          >
             <div
               class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
               style="background-color: rgba(70,206,122,0.15);"
@@ -211,16 +243,21 @@ async function handleSubmit() {
                 {{ t('contact.label_whatsapp') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal"
+                class="mt-0.5 text-[14px] font-normal transition-colors group-hover:text-primary"
                 :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
                 {{ t('contact.value_whatsapp') }}
               </p>
             </div>
-          </div>
+          </a>
 
-          <!-- Item 3: Location -->
-          <div class="flex items-start gap-4">
+          <!-- Item 3: Instagram -->
+          <a
+            href="https://instagram.com/duetesolutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-start gap-4"
+          >
             <div
               class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
               style="background-color: rgba(70,206,122,0.15);"
@@ -238,8 +275,9 @@ async function handleSubmit() {
                 style="color: var(--color-primary);"
                 aria-hidden="true"
               >
-                <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             </div>
             <div>
@@ -247,16 +285,16 @@ async function handleSubmit() {
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 style="font-family: var(--font-display); color: var(--color-primary);"
               >
-                {{ t('contact.label_location') }}
+                {{ t('contact.label_instagram') }}
               </p>
               <p
-                class="mt-0.5 text-[14px] font-normal"
+                class="mt-0.5 text-[14px] font-normal transition-colors group-hover:text-primary"
                 :style="{ fontFamily: 'var(--font-sans)', color: c.text }"
               >
-                {{ t('contact.value_location') }}
+                {{ t('contact.value_instagram') }}
               </p>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Right column — Form card -->
@@ -317,7 +355,7 @@ async function handleSubmit() {
                   class="text-[11px] font-semibold uppercase tracking-widest"
                   :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
                 >
-                  {{ t('contact.form_name') }}
+                  {{ t('contact.form_name') }} <span style="color: var(--color-primary);">*</span>
                 </label>
                 <input
                   id="contact-name"
@@ -347,7 +385,7 @@ async function handleSubmit() {
                   class="text-[11px] font-semibold uppercase tracking-widest"
                   :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
                 >
-                  {{ t('contact.form_email') }}
+                  {{ t('contact.form_email') }} <span style="color: var(--color-primary);">*</span>
                 </label>
                 <input
                   id="contact-email"
@@ -371,14 +409,44 @@ async function handleSubmit() {
               </div>
             </div>
 
-            <!-- Row 2: O que você precisa? -->
+            <!-- Row 2: Telefone -->
+            <div class="mt-4 flex flex-col gap-2">
+              <label
+                for="contact-phone"
+                class="text-[11px] font-semibold uppercase tracking-widest"
+                :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
+              >
+                {{ t('contact.form_phone') }}
+              </label>
+              <input
+                id="contact-phone"
+                :value="formData.phone"
+                type="tel"
+                inputmode="tel"
+                maxlength="17"
+                :placeholder="t('contact.form_phone_placeholder')"
+                autocomplete="tel"
+                @input="maskPhone"
+                class="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-200"
+                :style="{
+                  backgroundColor: c.inputBg,
+                  border: `1px solid ${c.inputBorder}`,
+                  color: c.text,
+                  fontFamily: 'var(--font-sans)',
+                }"
+                @focus="(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)' }"
+                @blur="(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = c.inputBorder }"
+              />
+            </div>
+
+            <!-- Row 3: O que você precisa? -->
             <div class="mt-4 flex flex-col gap-2">
               <label
                 for="contact-need"
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
               >
-                {{ t('contact.form_need') }}
+                {{ t('contact.form_need') }} <span style="color: var(--color-primary);">*</span>
               </label>
               <select
                 id="contact-need"
@@ -412,14 +480,14 @@ async function handleSubmit() {
               </p>
             </div>
 
-            <!-- Row 3: Mensagem -->
+            <!-- Row 4: Mensagem -->
             <div class="mt-4 flex flex-col gap-2">
               <label
                 for="contact-message"
                 class="text-[11px] font-semibold uppercase tracking-widest"
                 :style="{ fontFamily: 'var(--font-display)', color: c.formLabel }"
               >
-                {{ t('contact.form_message') }}
+                {{ t('contact.form_message') }} <span style="color: var(--color-primary);">*</span>
               </label>
               <textarea
                 id="contact-message"
