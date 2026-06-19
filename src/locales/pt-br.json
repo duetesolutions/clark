@@ -8,7 +8,7 @@
     "cta": "Fale conosco"
   },
   "hero": {
-    "badge": "SOLUÇÕES DIGITAIS · BRASIL",
+    "badge": "SOLUÇÕES DIGITAIS",
     "title": "Seu negócio merece uma presença digital de",
     "title_accent": "verdade",
     "subtitle": "Ajudamos empresas a crescerem no mundo digital com sites rápidos e modernos, feitos para posicionar no Google e transformar visitantes em clientes.",
@@ -149,15 +149,42 @@
     "status_included": "Incluso",
     "status_tbd": "A combinar",
     "items": [
-      { "label": "Landing page responsiva (celular + computador)", "status": "included" },
-      { "label": "SEO técnico (meta tags, Open Graph, sitemap, robots.txt)", "status": "included" },
-      { "label": "Performance 90+ no Google Lighthouse", "status": "included" },
-      { "label": "Formulário de contato funcional", "status": "included" },
-      { "label": "Deploy e configuração de domínio", "status": "included" },
-      { "label": "Domínio .com.br", "status": "included" },
-      { "label": "Certificado SSL (HTTPS)", "status": "included" },
-      { "label": "Até 2 rodadas de revisão", "status": "included" },
-      { "label": "Fotos profissionais / criação de logos / produção de conteúdo", "status": "tbd" }
+      {
+        "label": "Landing page responsiva (celular + computador)",
+        "status": "included"
+      },
+      {
+        "label": "SEO técnico (meta tags, Open Graph, sitemap, robots.txt)",
+        "status": "included"
+      },
+      {
+        "label": "Performance 90+ no Google Lighthouse",
+        "status": "included"
+      },
+      {
+        "label": "Formulário de contato funcional",
+        "status": "included"
+      },
+      {
+        "label": "Deploy e configuração de domínio",
+        "status": "included"
+      },
+      {
+        "label": "Domínio .com.br",
+        "status": "included"
+      },
+      {
+        "label": "Certificado SSL (HTTPS)",
+        "status": "included"
+      },
+      {
+        "label": "Até 2 rodadas de revisão",
+        "status": "included"
+      },
+      {
+        "label": "Fotos profissionais / criação de logos / produção de conteúdo",
+        "status": "tbd"
+      }
     ],
     "maintenance_tag": "PLANO MENSAL OPCIONAL",
     "maintenance_title": "Manutenção por R$ 120/mês",
@@ -172,24 +199,72 @@
     "process_tag": "PRAZO ESTIMADO",
     "process_title": "Processo de entrega",
     "timeline": [
-      { "step": "01", "label": "DIA 1", "title": "Brainstorm", "description": "Alinhamento de ideias e apresentação da proposta." },
-      { "step": "02", "label": "DIAS 2 – 5", "title": "Briefing", "description": "Aprovação de estrutura, textos e referências visuais." },
-      { "step": "03", "label": "DIAS 6 – 11", "title": "Desenvolvimento", "description": "Design, código, SEO e integrações." },
-      { "step": "04", "label": "DIA 12", "title": "Apresentação beta", "description": "Versão beta apresentada para revisão do cliente." },
-      { "step": "05", "label": "DIAS 13 – 14", "title": "Ajustes", "description": "Refinamentos conforme feedback. Até 2 rodadas inclusas." },
-      { "step": "06", "label": "DIAS 15 – 17", "title": "Entrega oficial", "description": "Deploy final, configuração de domínio e entrega ao cliente." }
+      {
+        "step": "01",
+        "label": "DIA 1",
+        "title": "Brainstorm",
+        "description": "Alinhamento de ideias e apresentação da proposta."
+      },
+      {
+        "step": "02",
+        "label": "DIAS 2 – 5",
+        "title": "Briefing",
+        "description": "Aprovação de estrutura, textos e referências visuais."
+      },
+      {
+        "step": "03",
+        "label": "DIAS 6 – 11",
+        "title": "Desenvolvimento",
+        "description": "Design, código, SEO e integrações."
+      },
+      {
+        "step": "04",
+        "label": "DIA 12",
+        "title": "Apresentação beta",
+        "description": "Versão beta apresentada para revisão do cliente."
+      },
+      {
+        "step": "05",
+        "label": "DIAS 13 – 14",
+        "title": "Ajustes",
+        "description": "Refinamentos conforme feedback. Até 2 rodadas inclusas."
+      },
+      {
+        "step": "06",
+        "label": "DIAS 15 – 17",
+        "title": "Entrega oficial",
+        "description": "Deploy final, configuração de domínio e entrega ao cliente."
+      }
     ],
     "warning_label": "Atenção:",
     "warning_text": "O prazo de 17 dias úteis inicia após a aprovação dos textos e materiais pelo cliente.",
     "terms_tag": "TERMOS E CONDIÇÕES",
     "terms_title": "O que você precisa saber",
     "terms": [
-      { "term": "PAGAMENTO", "desc": "25% na assinatura do contrato, 75% na entrega." },
-      { "term": "MANUTENÇÃO", "desc": "Opcional, cobrada a partir do mês seguinte à entrega." },
-      { "term": "CONTEÚDO", "desc": "O cliente fornece textos, imagens e logotipo no prazo acordado." },
-      { "term": "REVISÕES EXTRAS", "desc": "Além das 2 rodadas inclusas, R$ 80/hora." },
-      { "term": "HOSPEDAGEM", "desc": "Domínio e repositório por sua conta, ou gerenciado pela Duete Solutions." },
-      { "term": "CANCELAMENTO", "desc": "Aviso prévio de 30 dias para encerramento do plano mensal." }
+      {
+        "term": "PAGAMENTO",
+        "desc": "25% na assinatura do contrato, 75% na entrega."
+      },
+      {
+        "term": "MANUTENÇÃO",
+        "desc": "Opcional, cobrada a partir do mês seguinte à entrega."
+      },
+      {
+        "term": "CONTEÚDO",
+        "desc": "O cliente fornece textos, imagens e logotipo no prazo acordado."
+      },
+      {
+        "term": "REVISÕES EXTRAS",
+        "desc": "Além das 2 rodadas inclusas, R$ 80/hora."
+      },
+      {
+        "term": "HOSPEDAGEM",
+        "desc": "Domínio e repositório por sua conta, ou gerenciado pela Duete Solutions."
+      },
+      {
+        "term": "CANCELAMENTO",
+        "desc": "Aviso prévio de 30 dias para encerramento do plano mensal."
+      }
     ],
     "cta_title": "Vamos começar?",
     "cta_subtitle": "Entre em contato e vamos construir uma nova presença digital para o seu negócio.",
