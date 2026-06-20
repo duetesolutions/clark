@@ -8,7 +8,7 @@
     "cta": "Get in touch"
   },
   "hero": {
-    "badge": "DIGITAL SOLUTIONS · BRAZIL",
+    "badge": "DIGITAL SOLUTIONS",
     "title": "Your business deserves a digital presence that's",
     "title_accent": "real",
     "subtitle": "We help businesses grow in the digital world with fast, modern websites built to rank on Google and turn visitors into customers.",
@@ -107,14 +107,16 @@
     "subtitle": "Get in touch and receive a free audit of your digital presence.",
     "label_email": "EMAIL",
     "label_whatsapp": "WHATSAPP",
-    "label_location": "LOCATION",
+    "label_instagram": "INSTAGRAM",
     "value_email": "gabrielmonteiroduete{'@'}gmail.com",
     "value_whatsapp": "(88) 9 9686-5471",
-    "value_location": "Brazil — remote service",
+    "value_instagram": "{'@'}duetesolutions",
     "form_name": "NAME",
     "form_name_placeholder": "Your name",
     "form_email": "EMAIL",
     "form_email_placeholder": "your{'@'}email.com",
+    "form_phone": "PHONE",
+    "form_phone_placeholder": "+1 (000) 000-0000",
     "form_need": "WHAT DO YOU NEED?",
     "form_select": "Select a package",
     "form_message": "MESSAGE",
@@ -147,15 +149,42 @@
     "status_included": "Included",
     "status_tbd": "To be agreed",
     "items": [
-      { "label": "Responsive landing page (mobile + desktop)", "status": "included" },
-      { "label": "Technical SEO (meta tags, Open Graph, sitemap, robots.txt)", "status": "included" },
-      { "label": "90+ performance on Google Lighthouse", "status": "included" },
-      { "label": "Functional contact form", "status": "included" },
-      { "label": "Deploy and domain setup", "status": "included" },
-      { "label": ".com.br domain", "status": "included" },
-      { "label": "SSL certificate (HTTPS)", "status": "included" },
-      { "label": "Up to 2 rounds of revisions", "status": "included" },
-      { "label": "Professional photos / logo creation / content production", "status": "tbd" }
+      {
+        "label": "Responsive landing page (mobile + desktop)",
+        "status": "included"
+      },
+      {
+        "label": "Technical SEO (meta tags, Open Graph, sitemap, robots.txt)",
+        "status": "included"
+      },
+      {
+        "label": "90+ performance on Google Lighthouse",
+        "status": "included"
+      },
+      {
+        "label": "Functional contact form",
+        "status": "included"
+      },
+      {
+        "label": "Deploy and domain setup",
+        "status": "included"
+      },
+      {
+        "label": ".com.br domain",
+        "status": "included"
+      },
+      {
+        "label": "SSL certificate (HTTPS)",
+        "status": "included"
+      },
+      {
+        "label": "Up to 2 rounds of revisions",
+        "status": "included"
+      },
+      {
+        "label": "Professional photos / logo creation / content production",
+        "status": "tbd"
+      }
     ],
     "maintenance_tag": "OPTIONAL MONTHLY PLAN",
     "maintenance_title": "Maintenance for R$ 120/mo",
@@ -170,24 +199,72 @@
     "process_tag": "ESTIMATED TIMEFRAME",
     "process_title": "Delivery process",
     "timeline": [
-      { "step": "01", "label": "DAY 1", "title": "Brainstorm", "description": "Aligning ideas and presenting the proposal." },
-      { "step": "02", "label": "DAYS 2 – 5", "title": "Briefing", "description": "Approval of structure, copy, and visual references." },
-      { "step": "03", "label": "DAYS 6 – 11", "title": "Development", "description": "Design, code, SEO, and integrations." },
-      { "step": "04", "label": "DAY 12", "title": "Beta presentation", "description": "Beta version presented for client review." },
-      { "step": "05", "label": "DAYS 13 – 14", "title": "Adjustments", "description": "Refinements based on feedback. Up to 2 rounds included." },
-      { "step": "06", "label": "DAYS 15 – 17", "title": "Official delivery", "description": "Final deploy, domain setup, and delivery to the client." }
+      {
+        "step": "01",
+        "label": "DAY 1",
+        "title": "Brainstorm",
+        "description": "Aligning ideas and presenting the proposal."
+      },
+      {
+        "step": "02",
+        "label": "DAYS 2 – 5",
+        "title": "Briefing",
+        "description": "Approval of structure, copy, and visual references."
+      },
+      {
+        "step": "03",
+        "label": "DAYS 6 – 11",
+        "title": "Development",
+        "description": "Design, code, SEO, and integrations."
+      },
+      {
+        "step": "04",
+        "label": "DAY 12",
+        "title": "Beta presentation",
+        "description": "Beta version presented for client review."
+      },
+      {
+        "step": "05",
+        "label": "DAYS 13 – 14",
+        "title": "Adjustments",
+        "description": "Refinements based on feedback. Up to 2 rounds included."
+      },
+      {
+        "step": "06",
+        "label": "DAYS 15 – 17",
+        "title": "Official delivery",
+        "description": "Final deploy, domain setup, and delivery to the client."
+      }
     ],
     "warning_label": "Note:",
     "warning_text": "The 17-business-day timeframe starts after the client approves the copy and materials.",
     "terms_tag": "TERMS & CONDITIONS",
     "terms_title": "What you need to know",
     "terms": [
-      { "term": "PAYMENT", "desc": "25% on contract signing, 75% on delivery." },
-      { "term": "MAINTENANCE", "desc": "Optional, charged from the month following delivery." },
-      { "term": "CONTENT", "desc": "The client provides copy, images, and logo within the agreed timeframe." },
-      { "term": "EXTRA REVISIONS", "desc": "Beyond the 2 included rounds, R$ 80/hour." },
-      { "term": "HOSTING", "desc": "Domain and repository on your own account, or managed by Duete Solutions." },
-      { "term": "CANCELLATION", "desc": "30 days' notice to end the monthly plan." }
+      {
+        "term": "PAYMENT",
+        "desc": "25% on contract signing, 75% on delivery."
+      },
+      {
+        "term": "MAINTENANCE",
+        "desc": "Optional, charged from the month following delivery."
+      },
+      {
+        "term": "CONTENT",
+        "desc": "The client provides copy, images, and logo within the agreed timeframe."
+      },
+      {
+        "term": "EXTRA REVISIONS",
+        "desc": "Beyond the 2 included rounds, R$ 80/hour."
+      },
+      {
+        "term": "HOSTING",
+        "desc": "Domain and repository on your own account, or managed by Duete Solutions."
+      },
+      {
+        "term": "CANCELLATION",
+        "desc": "30 days' notice to end the monthly plan."
+      }
     ],
     "cta_title": "Shall we get started?",
     "cta_subtitle": "Get in touch and let's build a new digital presence for your business.",
